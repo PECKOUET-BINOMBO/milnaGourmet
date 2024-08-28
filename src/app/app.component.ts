@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
+import { SectionCremeuxComponent } from "./section-cremeux/section-cremeux.component";
+import { SectionLiquideComponent } from "./section-liquide/section-liquide.component";
+import { SectionCreationComponent } from "./section-creation/section-creation.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent],
+  imports: [RouterOutlet, HeaderComponent, SectionCremeuxComponent, SectionLiquideComponent, SectionCreationComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

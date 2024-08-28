@@ -1,5 +1,27 @@
-<app-navbar></app-navbar>
-<video class="w-full h-auto" loop controls>
-  <source src="../../assets/videos/bg-header.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+<div class="body gourmet-cremeux">
+  <app-navbar></app-navbar>
+  <div class="flex items-center header">
+    <div class="text-header-droit">
+      <div class="titre-header-droit principal font-semibold text-7xl mb-5">
+        <h1>Petit Déjeuner</h1>
+        <h1>Collation</h1>
+        <h1>Dessert</h1>
+      </div>
+      <p class="text-gray-700">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis
+        voluptatum quam mollitia repellat. Incidunt excepturi minima, asperiores
+        tenetur enim ut atque dicta, nihil magni suscipit error eius
+        necessitatibus cum. Ex.
+      </p>
+    </div>
+    <div class="div-img-header">
+      <img
+        [ngSrc]="headerUrl"
+        alt="Logo Milna Gourmet"
+        width="200"
+        height="200"
+        class=""
+      />
+    </div>
+  </div>
+</div>

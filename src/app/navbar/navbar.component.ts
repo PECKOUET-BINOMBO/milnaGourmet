@@ -1,15 +1,17 @@
+import { NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [
-
+    NgOptimizedImage
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
+
 export class NavbarComponent {
-   logoSource = '../../assets/images/logo.png'
-   altSource = 'Logo Milna Gourmet'
+   logoUrl = 'images/logo2.png'
+   
 }
