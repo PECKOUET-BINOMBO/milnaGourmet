@@ -1,26 +1,28 @@
 <div class="body gourmet-cremeux">
   <app-navbar></app-navbar>
-  <div class="flex items-center header">
-    <div class="text-header-droit">
-      <div class="titre-header-droit principal font-semibold text-7xl mb-5">
-        <h1>Petit Déjeuner</h1>
-        <h1>Collation</h1>
-        <h1>Dessert</h1>
+  <div class="flex flex-col mb-10 md:flex-row items-center header " id="accueil">
+    <div class="text-header-droit md:w-1/2 text-center md:text-left p-4">
+      <div
+        class="flex items-center justify-center  principal font-semibold"
+      >
+        <h1><span class="highlight-text whitespace-nowrap">Petit Déjeuner</span></h1>
+        <h1><span class="highlight-text px-5 md:px-0">Collation</span></h1>
+        <h1><span class="highlight-text">Dessert</span></h1>
       </div>
-      <p class="text-gray-700">
+      <p class="text-gray-700 text-justify">
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis
         voluptatum quam mollitia repellat. Incidunt excepturi minima, asperiores
         tenetur enim ut atque dicta, nihil magni suscipit error eius
         necessitatibus cum. Ex.
       </p>
     </div>
-    <div class="div-img-header">
+    <div class="div-img-header md:w-1/2 flex justify-center md:justify-end p-4">
       <img
         [ngSrc]="headerUrl"
         alt="Logo Milna Gourmet"
         width="200"
         height="200"
-        class=""
+        class="w-1/2 sm:w-1/3 md:w-1/2 lg:w-1/3"
       />
     </div>
   </div>

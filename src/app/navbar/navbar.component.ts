@@ -1,4 +1,4 @@
-import { NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage, ViewportScroller } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
@@ -14,4 +14,10 @@ import { Component } from '@angular/core';
 export class NavbarComponent {
    logoUrl = 'images/logo2.png'
    
+   constructor(private viewportScroller: ViewportScroller) {}
+
+   scrollToElement(elementId: string): void {
+    this.viewportScroller.scrollToAnchor(elementId);
+   }
+
 }

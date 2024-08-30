@@ -1,16 +1,86 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>MilnaGourmet</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
-</head>
-<body>
-  <app-root></app-root>
-  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <title>MilnaGourmet</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <app-root></app-root>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var navbar = document.querySelector(".navbar");
+        var scrollThreshold = 5; // Ajustez cette valeur selon vos besoins
+        var scrollThreshold2 = 615;
+
+        window.addEventListener("scroll", function () {
+          if (window.scrollY > scrollThreshold) {
+            navbar.classList.add("navbar-scrolled");
+          } else {
+            navbar.classList.remove("navbar-scrolled");
+          }
+
+          if (window.scrollY > scrollThreshold2) {
+            navbar.classList.add("navbar-scrolled2");
+          } else {
+            navbar.classList.remove("navbar-scrolled2");
+          }
+        });
+      });
+
+      ///////////////////////DROPDOWN PANIER////////////////////////////
+      document.addEventListener("DOMContentLoaded", (event) => {
+        const cartButton = document.getElementById("cartButton");
+        const cartDropdown = document.getElementById("cartDropdown");
+
+        cartButton.addEventListener("click", () => {
+          cartDropdown.classList.toggle("hidden");
+        });
+
+        // Fermer le dropdown si on clique en dehors
+        document.addEventListener("click", (event) => {
+          if (
+            !cartButton.contains(event.target) &&
+            !cartDropdown.contains(event.target)
+          ) {
+            cartDropdown.classList.add("hidden");
+          }
+        });
+
+        // Fonction pour ajouter un produit au panier (à appeler quand un produit est choisi)
+        function addToCart(productName, price) {
+          const cartItems = document.getElementById("cartItems");
+          const li = document.createElement("li");
+          li.textContent = `${productName} - ${price}€`;
+          cartItems.appendChild(li);
+
+          updateCartTotal();
+          updateCartCount();
+        }
+
+        function updateCartTotal() {
+          // Logique pour calculer et mettre à jour le total
+        }
+
+        function updateCartCount() {
+          // Logique pour mettre à jour le compteur du panier
+        }
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+  </body>
 </html>

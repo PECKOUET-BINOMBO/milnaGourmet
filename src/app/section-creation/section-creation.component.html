@@ -1,15 +1,15 @@
-<div class="gourmet-cremeux max-w-screen-xl mx-auto p-4">
-  <div class="flex flex-col items-center h-full">
+<div class="gourmet-cremeux max-w-screen-xl mx-auto p-4 mt-1" id="creation">
+  <div class="flex flex-col items-center h-full px-4">
     <div class="text-center">
-      <h1 class="font-bold text-4xl principal">Gourments Créations</h1>
+      <h1 class="font-bold text-4xl principal highlight-text">Gourments Créations</h1>
       <p class="text-gray-700 mt-3 font-medium">
         A drink from the 'My Alowishus' bottled brews range OR grab one of our
         delicious coffee's
       </p>
     </div>
 
-    <div class="flex items-center justify-between w-full">
-      <div>
+    <div class="services flex items-center justify-between w-full">
+      <div class="hidden md:block">
        <img [ngSrc]="natureUrl" alt="creation gif" width="500" height="500" />
       </div>
 
@@ -223,24 +223,24 @@
             </tbody>
           </table>
 
-          <div class="flex items-center justify-center">
-            <div class="flex items-center justify-between me-1">
-              <button
-                class="rounded bg-gray-900 px-3 py-1 text-1xl font-semibold text-white"
+          <div class="flex items-center justify-between mt-5">
+            <div class="flex items-center me-1">
+              <select
+                id="countries"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               >
-                -
-              </button>
-              <span class="text-md font-bold text-gray-900 block mx-4">1</span>
-              <button
-                class="rounded bg-gray-900 px-3 py-1 text-1xl font-semibold text-white"
-              >
-                +
-              </button>
+                <option selected>Quantité</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
             </div>
             <a
               href="#"
               class="ms-1 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center btn"
-              >Commander</a
+              >Ajouter</a
             >
           </div>
         </div>

@@ -6,3 +6,15 @@
   background: #2fcbd0;
   color: #ffffff;
 }
+
+.navbar {
+  transition: background-color 0.3s ease;
+}
+.navbar-scrolled {
+  background-color: #EEEFF1;
+  // box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+.navbar-scrolled2 {
+  background-color: #ffffff;
+  // box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
