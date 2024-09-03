@@ -21,6 +21,7 @@
   position: relative;
   overflow: hidden;
   display: inline-block;
+  font-size:xx-large;
 }
 .highlight-text::after {
   content: "";
@@ -29,6 +30,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
+
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
   animation: highlight 2s linear infinite;
 }
@@ -38,5 +40,30 @@
   }
   100% {
       left: 100%;
+  }
+}
+
+.highlight-text + p{
+  font-size: medium;
+  
+}
+
+.box
+{
+  width: 80%;
+  margin: auto;
+}
+
+@media screen and (max-width:768px){
+
+  .box{
+    width: 75%;
+  }
+}
+
+@media screen and (max-width:480px){
+
+  .box{
+    width: 100%;
   }
 }
