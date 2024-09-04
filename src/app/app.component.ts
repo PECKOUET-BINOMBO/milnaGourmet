@@ -4,11 +4,12 @@ import { HeaderComponent } from "./header/header.component";
 import { SectionCremeuxComponent } from "./section-cremeux/section-cremeux.component";
 import { SectionLiquideComponent } from "./section-liquide/section-liquide.component";
 import { SectionCreationComponent } from "./section-creation/section-creation.component";
+import { FooterComponent } from "./footer/footer.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, SectionCremeuxComponent, SectionLiquideComponent, SectionCreationComponent],
+  imports: [RouterOutlet, HeaderComponent, SectionCremeuxComponent, SectionLiquideComponent, SectionCreationComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

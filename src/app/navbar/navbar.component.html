@@ -16,6 +16,7 @@
     <div
       class="relative flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse"
     >
+    <!--Panier-->
       <button
         type="button"
         id="cartButton"
@@ -42,6 +43,8 @@
           </div>
         </div>
       </div>
+
+
 
       <!-- Bouton du menu pour mobile -->
       <button
@@ -105,13 +108,44 @@
             >Créations</a
           >
         </li>
-        <!-- <li>
+        <li>
           <a
           (click)="scrollToElement('contact')"
             class="cursor-pointer principal block py-2 px-3 md:p-0"
             >Contacts</a
           >
-        </li> -->
+        </li>
+        <li>
+          <a
+          id="compte"
+            class="cursor-pointer principal block py-2 px-3 md:p-0 relative"
+            > <img [ngSrc]="iconCompte" alt="icon compte"  width="50" height="50" /> </a
+          >
+          <ul id="compteDropdown" class="font-normal text-gray-800 absolute hidden z-10 mt-2  bg-white rounded-md shadow-lg">
+            <li class="py-1 px-2">
+              <a id="inscription"
+
+                class="cursor-pointer principal block py-2 px-3 md:p-0"
+                >S'inscrire</a
+              >
+            </li>
+            <li class="py-1 px-2">
+              <a id="connexion"
+
+                class="cursor-pointer principal block py-2 px-3 md:p-0"
+                >Se connecter</a
+              >
+            </li>
+            <li class="py-1 px-2">
+              <a
+
+                class="cursor-pointer principal block py-2 px-3 md:p-0"
+                >Se déconnecter</a
+              >
+            </li>
+          </ul>
+        </li>
+
       </ul>
     </div>
   </div>

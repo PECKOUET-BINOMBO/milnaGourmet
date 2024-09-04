@@ -20,25 +20,229 @@
   </head>
   <body>
     <app-root></app-root>
+
+    <!-- modal inscription -->
+    <div
+      id="modalInscription"
+      class="mt-2 w-64 bg-white rounded-md shadow-lg hidden p-5"
+    >
+      <form class="form p-4 w-1/2 mx-auto shadow-lg border-2 rounded bg-white">
+        <h1 class="text-center font-medium text-xl mb-4 principal">
+          Mon compte
+        </h1>
+
+        <!-- Nom et Prénom -->
+        <div class="flex flex-wrap mb-4">
+          <div class="w-full md:w-1/2 p-2 mb-4 md:mb-0">
+            <label for="nom" class="block text-sm font-medium mb-1">Nom</label>
+            <input
+              type="text"
+              id="nom"
+              name="nom"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+          <div class="w-full md:w-1/2 p-2">
+            <label for="prenom" class="block text-sm font-medium mb-1"
+              >Prénom</label
+            >
+            <input
+              type="text"
+              id="prenom"
+              name="prenom"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Numéro Mobile et Numéro WhatsApp -->
+        <div class="flex flex-wrap mb-4">
+          <div class="w-full md:w-1/2 p-2 mb-4 md:mb-0">
+            <label for="mobile" class="block text-sm font-medium mb-1"
+              >Numéro Mobile</label
+            >
+            <input
+              type="tel"
+              id="mobile"
+              name="mobile"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+          <div class="w-full md:w-1/2 p-2">
+            <label for="whatsapp" class="block text-sm font-medium mb-1"
+              >Numéro WhatsApp</label
+            >
+            <input
+              type="tel"
+              id="whatsapp"
+              name="whatsapp"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Adresse de Livraison -->
+        <div class="mb-4">
+          <label for="adresse" class="block text-sm font-medium mb-1"
+            >Adresse de Livraison</label
+          >
+          <select
+            id="adresse"
+            name="adresse"
+            class="w-full p-2 border rounded"
+            required
+          >
+            <option value="">Sélectionnez une adresse</option>
+            <option value="adresse1">Adresse 1</option>
+            <option value="adresse2">Adresse 2</option>
+            <option value="adresse3">Adresse 3</option>
+          </select>
+        </div>
+
+        <!-- Bouton Soumettre -->
+        <div class="text-center">
+          <button
+            type="submit"
+            class="btn-register text-white px-4 py-2 rounded"
+          >
+            Créer
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- modal connexion -->
+    <div
+      id="modalConnexion"
+      class="mt-2 w-64 bg-white rounded-md shadow-lg hidden p-5"
+    >
+      <form class="form p-4 w-1/2 mx-auto shadow-lg border-2 rounded bg-white">
+        <h1 class="text-center font-medium text-xl mb-4 principal">
+          Connexion
+        </h1>
+
+        <!-- Numéro Mobile et Numéro WhatsApp -->
+        <div class="flex flex-wrap mb-4">
+          <div class="w-full md:w-1/2 p-2 mb-4 md:mb-0">
+            <label for="mobile" class="block text-sm font-medium mb-1"
+              >Numéro Mobile</label
+            >
+            <input
+              type="tel"
+              id="mobile"
+              name="mobile"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Bouton Soumettre -->
+        <div class="text-center">
+          <button
+            type="submit"
+            class="btn-register text-white px-4 py-2 rounded"
+          >
+            Se connecter
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Ajoutez ce code HTML juste avant la fermeture de la balise body -->
+    <button
+      id="scrollUpBtn"
+      class="scroll-up-btn rounded-full px-4 py-2"
+      aria-label="Retourner en haut de la page"
+    >
+      <i class="fa-solid fa-arrow-up-long"></i>
+    </button>
+
+    <!-- ////////////////////////////SCRIPT//////////////////////////// -->
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        var navbar = document.querySelector(".navbar");
-        var scrollThreshold = 5; // Ajustez cette valeur selon vos besoins
-        var scrollThreshold2 = 615;
-
-        window.addEventListener("scroll", function () {
-          if (window.scrollY > scrollThreshold) {
-            navbar.classList.add("navbar-scrolled");
-          } else {
-            navbar.classList.remove("navbar-scrolled");
-          }
-
-          if (window.scrollY > scrollThreshold2) {
-            navbar.classList.add("navbar-scrolled2");
-          } else {
-            navbar.classList.remove("navbar-scrolled2");
-          }
+      ////////////////////////// Fonction pour faire défiler la page vers le haut/////////////////
+      function scrollToTop() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
         });
+      }
+
+      // Afficher ou masquer le bouton en fonction de la position de défilement
+      window.onscroll = function () {
+        var scrollUpBtn = document.getElementById("scrollUpBtn");
+        if (
+          document.body.scrollTop > 20 ||
+          document.documentElement.scrollTop > 20
+        ) {
+          scrollUpBtn.style.display = "block";
+        } else {
+          scrollUpBtn.style.display = "none";
+        }
+      };
+
+      // Ajouter un écouteur d'événements pour le clic sur le bouton
+      document
+        .getElementById("scrollUpBtn")
+        .addEventListener("click", scrollToTop);
+
+      //////////////////////////////modal inscription
+      const inscription = document.getElementById("inscription");
+      const modalInscription = document.getElementById("modalInscription");
+
+      inscription.addEventListener("click", () => {
+        modalInscription.classList.toggle("hidden");
+      });
+
+      // Fermer le dropdown si on clique en dehors
+      document.addEventListener("click", (event) => {
+        if (
+          !inscription.contains(event.target) &&
+          !modalInscription.contains(event.target)
+        ) {
+          modalInscription.classList.add("hidden");
+        }
+      });
+
+      //////////////////////////////modal inscription
+      const connexion = document.getElementById("connexion");
+      const modalConnexion = document.getElementById("modalConnexion");
+
+      connexion.addEventListener("click", () => {
+        modalConnexion.classList.toggle("hidden");
+      });
+
+      // Fermer le dropdown si on clique en dehors
+      document.addEventListener("click", (event) => {
+        if (
+          !connexion.contains(event.target) &&
+          !modalConnexion.contains(event.target)
+        ) {
+          modalConnexion.classList.add("hidden");
+        }
+      });
+
+      ///////////////////////DROPDOWN COMPTE////////////////////////////
+
+      const compte = document.getElementById("compte");
+      const compteDropdown = document.getElementById("compteDropdown");
+
+      compte.addEventListener("click", () => {
+        compteDropdown.classList.toggle("hidden");
+      });
+
+      // Fermer le dropdown si on clique en dehors
+      document.addEventListener("click", (event) => {
+        if (
+          !compte.contains(event.target) &&
+          !compteDropdown.contains(event.target)
+        ) {
+          compteDropdown.classList.add("hidden");
+        }
       });
 
       ///////////////////////DROPDOWN PANIER////////////////////////////

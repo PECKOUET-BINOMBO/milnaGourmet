@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
 
 export class NavbarComponent {
    logoUrl = 'images/logo2.png'
-   
+   iconCompte = 'images/compte.gif'
+
    constructor(private viewportScroller: ViewportScroller) {}
 
    scrollToElement(elementId: string): void {
