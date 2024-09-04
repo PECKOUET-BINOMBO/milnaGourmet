@@ -25,7 +25,8 @@
 }
 
 #compteDropdown li a{
-  color: rgba(151, 151, 151, 1);
+  color: rgb(0, 0, 0);
+  font-size: 1vw;
 }
 
 #compteDropdown li:hover{
@@ -108,16 +109,6 @@
   }
 }
 
-// .titre-produit{
-//   font-size:1.1vw;
-// }
-// .prix-produit{
-//   font-size:1vw;
-// }
-// .quantite-produit, .btn-produit{
-//   font-size:1.1vw;
-
-// }
 
 .box-section:not(#liquide, #creation){
   margin: 5rem 0;
