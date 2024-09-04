@@ -14,8 +14,35 @@ object-position: center;
 
 
 .para-header{
-  font-size: 2vw;
+  text-align: justify;
+    font-size: 1.5vw;
 }
+
+.text-header-droit{
+  width: auto;
+}
+
+@media screen and (max-width:767px) {
+  .para-header{
+    font-size: 3.5vw;
+
+  }
+  .titre-header h1 span{
+    font-size: 6vw;
+  }
+
+  .text-header-droit{
+    width: auto ;
+  }
+}
+
+// @media screen and (max-width:768px) {
+// .text-header-droit{
+//     width: auto ;
+//   }
+// }
+
+
 
 
 
