@@ -7,11 +7,12 @@ import { SectionCreationComponent } from "./section-creation/section-creation.co
 import { FooterComponent } from "./footer/footer.component";
 import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
+import { ContactComponent } from "./contact/contact.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, SectionCremeuxComponent, SectionLiquideComponent, SectionCreationComponent, FooterComponent, RegisterComponent, LoginComponent],
+  imports: [RouterOutlet, HeaderComponent, SectionCremeuxComponent, SectionLiquideComponent, SectionCreationComponent, FooterComponent, RegisterComponent, LoginComponent, ContactComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
