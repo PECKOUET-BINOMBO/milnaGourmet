@@ -21,4 +21,8 @@ export class NavbarComponent {
     this.viewportScroller.scrollToAnchor(elementId);
    }
 
+   logout():void{
+    console.log('Déconnexion')
+  }
+
 }

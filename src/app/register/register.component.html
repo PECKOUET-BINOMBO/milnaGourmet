@@ -1,0 +1,95 @@
+<!-- modal inscription -->
+<div
+id="modalInscription"
+class="mt-2 w-64 bg-white rounded-md shadow-lg hidden p-5"
+>
+<form class="form p-4 w-1/2 mx-auto shadow-lg border-2 rounded bg-white">
+  <h1 class="text-center font-medium text-xl mb-4 principal">
+    Mon compte
+  </h1>
+
+  <!-- Nom ou Prénom -->
+  <div class="flex flex-wrap mb-4">
+    <div class="w-full md:w-1/2 p-2 mb-4 md:mb-0">
+      <label for="pseudo" class="block text-sm font-medium mb-1"
+        >Pseudo</label
+      >
+      <input
+        type="text"
+        id="nom"
+        name="nom"
+        class="w-full p-2 border rounded"
+        required
+      />
+    </div>
+    <div class="w-full md:w-1/2 p-2">
+      <label for="prenom" class="block text-sm font-medium mb-1"
+        >E-mail</label
+      >
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="w-full p-2 border rounded"
+        required
+      />
+    </div>
+  </div>
+
+  <!-- Numéro Mobile et Numéro WhatsApp -->
+  <div class="flex flex-wrap mb-4">
+    <div class="w-full md:w-1/2 p-2">
+      <label for="whatsapp" class="block text-sm font-medium mb-1"
+        >Numéro WhatsApp</label
+      >
+      <input
+        type="tel"
+        id="whatsapp"
+        name="whatsapp"
+        class="w-full p-2 border rounded"
+        required
+      />
+    </div>
+    <div class="w-full md:w-1/2 p-2 mb-4 md:mb-0">
+      <label for="mobile" class="block text-sm font-medium mb-1"
+        >Mots de passe</label
+      >
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="w-full p-2 border rounded"
+        required
+      />
+    </div>
+  </div>
+
+  <!-- Adresse de Livraison -->
+  <div class="mb-4">
+    <label for="adresse" class="block text-sm font-medium mb-1"
+      >Points de Livraison</label
+    >
+    <select
+      id="adresse"
+      name="adresse"
+      class="w-full p-2 border rounded"
+      required
+    >
+      <option value="">Sélectionnez une adresse</option>
+      <option value="adresse1">Adresse 1</option>
+      <option value="adresse2">Adresse 2</option>
+      <option value="adresse3">Adresse 3</option>
+    </select>
+  </div>
+
+  <!-- Bouton Soumettre -->
+  <div class="text-center">
+    <button
+      type="submit"
+      class="btn-register text-white px-4 py-2 rounded"
+    >
+      Créer
+    </button>
+  </div>
+</form>
+</div>

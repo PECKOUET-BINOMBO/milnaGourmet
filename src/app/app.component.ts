@@ -5,14 +5,17 @@ import { SectionCremeuxComponent } from "./section-cremeux/section-cremeux.compo
 import { SectionLiquideComponent } from "./section-liquide/section-liquide.component";
 import { SectionCreationComponent } from "./section-creation/section-creation.component";
 import { FooterComponent } from "./footer/footer.component";
+import { RegisterComponent } from "./register/register.component";
+import { LoginComponent } from "./login/login.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, SectionCremeuxComponent, SectionLiquideComponent, SectionCreationComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, SectionCremeuxComponent, SectionLiquideComponent, SectionCreationComponent, FooterComponent, RegisterComponent, LoginComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'milnaGourmet';
+
 }
