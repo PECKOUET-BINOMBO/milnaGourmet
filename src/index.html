@@ -131,24 +131,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
   });
 
-  // Fonction pour ajouter un produit au panier (à appeler quand un produit est choisi)
-  function addToCart(productName, price) {
-    const cartItems = document.getElementById("cartItems");
-    const li = document.createElement("li");
-    li.textContent = `${productName} - ${price}€`;
-    cartItems.appendChild(li);
-
-    updateCartTotal();
-    updateCartCount();
-  }
-
-  function updateCartTotal() {
-    // Logique pour calculer et mettre à jour le total
-  }
-
-  function updateCartCount() {
-    // Logique pour mettre à jour le compteur du panier
-  }
 });
 
     </script>

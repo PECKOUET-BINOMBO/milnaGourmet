@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NgOptimizedImage, NgFor, CurrencyPipe } from '@angular/common';
+import { ServicePanier } from '../services/service-panier';
+import { FormsModule } from '@angular/forms';
 
 // Définition de l'interface Product pour typer nos produits
 interface Produit {
@@ -8,13 +10,14 @@ interface Produit {
   description: string; // Description du produit
   prix: number;     // Prix du produit en Francs CFA
   imageUrl: string;  // URL de l'image du produit
+  quantite: number; // Propriété pour gérer la quantité sélectionnée
 }
 
 
 @Component({
   selector: 'app-section-cremeux',
   standalone: true,
-  imports: [NgOptimizedImage, NgFor, CurrencyPipe],
+  imports: [NgOptimizedImage, NgFor, CurrencyPipe, FormsModule],
   templateUrl: './section-cremeux.component.html',
   styleUrl: './section-cremeux.component.scss'
 })
@@ -26,24 +29,48 @@ export class SectionCremeuxComponent {
       nom: 'Nature',
       description: 'Gourmet sans sucre',
       prix: 450,
-      imageUrl: 'images/header.png'
+      imageUrl: 'images/header.png',
+      quantite: 1
     },
     {
       id: 2,
       nom: 'Simple',
       description: 'Gourmet avec sucre',
       prix: 600,
-      imageUrl: 'images/header.png'
+      imageUrl: 'images/header.png',
+      quantite: 1
     },
     {
       id: 3,
       nom: 'Céréales',
       description: 'Gourmet avec céréales',
       prix: 1000,
-      imageUrl: 'images/header.png'
+      imageUrl: 'images/header.png',
+      quantite: 1
     }
   ];
 
-  // Vous pouvez ajouter ici d'autres méthodes pour gérer les interactions utilisateur,
-  // comme l'ajout au panier ou la mise à jour des quantités
+  // Tableau pour les options de quantité
+  quantiteOptions = [1, 2, 3, 4, 5];
+
+  constructor(private servicePanier: ServicePanier) {}
+
+  // Méthode pour ajouter un produit au panier
+  ajouterAuPanier(produit: Produit) {
+    this.servicePanier.ajouterAuPanier({
+      id: produit.id,
+      nom: produit.nom,
+      prix: produit.prix,
+      quantite: produit.quantite
+    });
+
+// Réinitialiser la quantité à 1 après l'ajout au panier
+produit.quantite = 1;
+  }
+
+  // Méthode pour gérer le changement de quantité
+  changerQuantite(produit: Produit, nouvelleQuantite: number) {
+    produit.quantite = nouvelleQuantite;
+  }
+
 }
