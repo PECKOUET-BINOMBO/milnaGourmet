@@ -17,7 +17,7 @@ class="absolute right-0 top-6 z-10 mt-2 w-64 bg-white rounded-md shadow-lg hidde
   <h3 class="text-md font-medium mb-2 principal">Gourmets choisis</h3>
   <ul id="cartItems" class="space-y-2">
     <!-- Les produits sont ajoutés ici dynamiquement -->
-    <li *ngFor="let element of elementsPanier" class="mb-2">
+    <li *ngFor="let element of elementsPanier" class="mb-2 border-b pb-3">
       <div class="flex justify-between items-center">
         {{ element.nom }} {{ element.prix * element.quantite }} FCFA
       </div>
@@ -32,7 +32,7 @@ class="absolute right-0 top-6 z-10 mt-2 w-64 bg-white rounded-md shadow-lg hidde
       </div>
     </li>
   </ul>
-  <div class="mt-4 pt-2 border-t">
+  <div class="mt-4 pt-2 ">
     <p class="font-medium text-sm">
       Total: <span id="cartTotal">{{ total }} FCFA</span>
     </p>
