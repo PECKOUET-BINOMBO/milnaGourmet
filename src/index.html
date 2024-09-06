@@ -30,129 +30,128 @@
       <i class="fa-solid fa-arrow-up-long"></i>
     </button>
 
-    <!-- ////////////////////////////SCRIPT//////////////////////////// -->
     <script>
       ////////////////////////// Fonction pour faire défiler la page vers le haut/////////////////
-      function scrollToTop() {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      }
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}
 
-      // Afficher ou masquer le bouton en fonction de la position de défilement
-      window.onscroll = function () {
-        var scrollUpBtn = document.getElementById("scrollUpBtn");
-        if (
-          document.body.scrollTop > 20 ||
-          document.documentElement.scrollTop > 20
-        ) {
-          scrollUpBtn.style.display = "block";
-        } else {
-          scrollUpBtn.style.display = "none";
-        }
-      };
+// Afficher ou masquer le bouton en fonction de la position de défilement
+window.onscroll = function () {
+  var scrollUpBtn = document.getElementById("scrollUpBtn");
+  if (
+    document.body.scrollTop > 20 ||
+    document.documentElement.scrollTop > 20
+  ) {
+    scrollUpBtn.style.display = "block";
+  } else {
+    scrollUpBtn.style.display = "none";
+  }
+};
 
-      // Ajouter un écouteur d'événements pour le clic sur le bouton
-      document
-        .getElementById("scrollUpBtn")
-        .addEventListener("click", scrollToTop);
+// Ajouter un écouteur d'événements pour le clic sur le bouton
+document
+  .getElementById("scrollUpBtn")
+  .addEventListener("click", scrollToTop);
 
-      //////////////////////////////modal inscription
-      const inscription = document.getElementById("inscription");
-      const modalInscription = document.getElementById("modalInscription");
+//////////////////////////////modal inscription
+const inscription = document.getElementById("inscription");
+const modalInscription = document.getElementById("modalInscription");
 
-      inscription.addEventListener("click", () => {
-        modalInscription.classList.toggle("hidden");
-      });
+inscription.addEventListener("click", () => {
+  modalInscription.classList.toggle("hidden");
+});
 
-      // Fermer le dropdown si on clique en dehors
-      document.addEventListener("click", (event) => {
-        if (
-          !inscription.contains(event.target) &&
-          !modalInscription.contains(event.target)
-        ) {
-          modalInscription.classList.add("hidden");
-        }
-      });
+// Fermer le dropdown si on clique en dehors
+document.addEventListener("click", (event) => {
+  if (
+    !inscription.contains(event.target) &&
+    !modalInscription.contains(event.target)
+  ) {
+    modalInscription.classList.add("hidden");
+  }
+});
 
-      //////////////////////////////modal inscription
-      const connexion = document.getElementById("connexion");
-      const modalConnexion = document.getElementById("modalConnexion");
+//////////////////////////////modal connexion
+const connexion = document.getElementById("connexion");
+const modalConnexion = document.getElementById("modalConnexion");
 
-      connexion.addEventListener("click", () => {
-        modalConnexion.classList.toggle("hidden");
-      });
+connexion.addEventListener("click", () => {
+  modalConnexion.classList.toggle("hidden");
+});
 
-      // Fermer le dropdown si on clique en dehors
-      document.addEventListener("click", (event) => {
-        if (
-          !connexion.contains(event.target) &&
-          !modalConnexion.contains(event.target)
-        ) {
-          modalConnexion.classList.add("hidden");
-        }
-      });
+// Fermer le dropdown si on clique en dehors
+document.addEventListener("click", (event) => {
+  if (
+    !connexion.contains(event.target) &&
+    !modalConnexion.contains(event.target)
+  ) {
+    modalConnexion.classList.add("hidden");
+  }
+});
 
-      ///////////////////////DROPDOWN COMPTE////////////////////////////
+///////////////////////DROPDOWN COMPTE////////////////////////////
 
-      const compte = document.getElementById("compte");
-      const compteDropdown = document.getElementById("compteDropdown");
+const compte = document.getElementById("compte");
+const compteDropdown = document.getElementById("compteDropdown");
 
-      compte.addEventListener("click", () => {
-        compteDropdown.classList.toggle("hidden");
-      });
+compte.addEventListener("click", () => {
+  compteDropdown.classList.toggle("hidden");
+});
 
-      // Fermer le dropdown si on clique en dehors
-      document.addEventListener("click", (event) => {
-        if (
-          !compte.contains(event.target) &&
-          !compteDropdown.contains(event.target)
-        ) {
-          compteDropdown.classList.add("hidden");
-        }
-      });
+// Fermer le dropdown si on clique en dehors
+document.addEventListener("click", (event) => {
+  if (
+    !compte.contains(event.target) &&
+    !compteDropdown.contains(event.target)
+  ) {
+    compteDropdown.classList.add("hidden");
+  }
+});
 
-      ///////////////////////DROPDOWN PANIER////////////////////////////
-      document.addEventListener("DOMContentLoaded", (event) => {
-        const cartButton = document.getElementById("cartButton");
-        const cartDropdown = document.getElementById("cartDropdown");
+///////////////////////DROPDOWN PANIER////////////////////////////
+document.addEventListener("DOMContentLoaded", (event) => {
+  const cartButton = document.getElementById("cartButton");
+  const cartDropdown = document.getElementById("cartDropdown");
 
-        cartButton.addEventListener("click", () => {
-          cartDropdown.classList.toggle("hidden");
-        });
+  cartButton.addEventListener("click", () => {
+    cartDropdown.classList.toggle("hidden");
+  });
 
-        // Fermer le dropdown si on clique en dehors
-        document.addEventListener("click", (event) => {
-          if (
-            !cartButton.contains(event.target) &&
-            !cartDropdown.contains(event.target)
-          ) {
-            cartDropdown.classList.add("hidden");
-          }
-        });
+  // Fermer le dropdown si on clique en dehors
+  document.addEventListener("click", (event) => {
+    if (
+      !cartButton.contains(event.target) &&
+      !cartDropdown.contains(event.target)
+    ) {
+      cartDropdown.classList.add("hidden");
+    }
+  });
 
-        // Fonction pour ajouter un produit au panier (à appeler quand un produit est choisi)
-        function addToCart(productName, price) {
-          const cartItems = document.getElementById("cartItems");
-          const li = document.createElement("li");
-          li.textContent = `${productName} - ${price}€`;
-          cartItems.appendChild(li);
+  // Fonction pour ajouter un produit au panier (à appeler quand un produit est choisi)
+  function addToCart(productName, price) {
+    const cartItems = document.getElementById("cartItems");
+    const li = document.createElement("li");
+    li.textContent = `${productName} - ${price}€`;
+    cartItems.appendChild(li);
 
-          updateCartTotal();
-          updateCartCount();
-        }
+    updateCartTotal();
+    updateCartCount();
+  }
 
-        function updateCartTotal() {
-          // Logique pour calculer et mettre à jour le total
-        }
+  function updateCartTotal() {
+    // Logique pour calculer et mettre à jour le total
+  }
 
-        function updateCartCount() {
-          // Logique pour mettre à jour le compteur du panier
-        }
-      });
+  function updateCartCount() {
+    // Logique pour mettre à jour le compteur du panier
+  }
+});
+
     </script>
-
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
   </body>
 </html>

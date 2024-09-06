@@ -1,12 +1,14 @@
 import { NgOptimizedImage, ViewportScroller } from '@angular/common';
 import { Component } from '@angular/core';
+import { PanierComponent } from "../panier/panier.component";
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [
-    NgOptimizedImage
-  ],
+    NgOptimizedImage,
+    PanierComponent
+],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })

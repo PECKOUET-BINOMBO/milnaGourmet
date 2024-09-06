@@ -16,33 +16,9 @@
     <div
       class="relative flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse"
     >
-    <!--Panier-->
-      <button
-        type="button"
-        id="cartButton"
-        class="btn-navbar focus:ring-offset-0 focus:outline-none focus:ring-0 font-medium rounded-lg text-sm px-4 py-2 text-center shadow-lg sm:px-3 sm:py-1.5 sm:text-xs md:px-4 md:py-2 md:text-sm lg:px-5 lg:py-2.5 lg:text-base"
-      >
-        <i class="fa-solid fa-bag-shopping"></i>
-        <span class="ms-1 text-xs">0</span>
-      </button>
 
-      <!-- Dropdown pour les produits du panier -->
-      <div
-        id="cartDropdown"
-        class="absolute right-0 top-6 z-10 mt-2 w-64 bg-white rounded-md shadow-lg hidden"
-      >
-        <div class="p-4">
-          <h3 class="text-md font-medium mb-2 principal">Gourmets choisis</h3>
-          <ul id="cartItems" class="space-y-2">
-            <!-- Les produits seront ajoutés ici dynamiquement -->
-          </ul>
-          <div class="mt-4 pt-2 border-t">
-            <p class="font-medium text-sm">
-              Total: <span id="cartTotal">0.00 Fcfa</span>
-            </p>
-          </div>
-        </div>
-      </div>
+    <!-- Panier -->
+     <app-panier></app-panier>
 
 
 
