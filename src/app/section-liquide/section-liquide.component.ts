@@ -59,9 +59,10 @@ export class SectionLiquideComponent {
   ajouterAuPanier(produit: Produit) {
     this.servicePanier.ajouterAuPanier({
       id: produit.id,
-      nom: produit.nom,
-      prix: produit.prix,
-      quantite: Number(produit.quantite)
+    nom: produit.nom,
+    prix: produit.prix,
+    quantite: Number(produit.quantite),
+    type: 'liquide'
     });
 
 // Réinitialiser la quantité à 1 après l'ajout au panier
@@ -72,5 +73,5 @@ produit.quantite = 1;
   changerQuantite(produit: Produit, nouvelleQuantite: number) {
     produit.quantite = nouvelleQuantite;
   }
-  
+
 }

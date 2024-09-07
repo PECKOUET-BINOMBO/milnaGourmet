@@ -61,7 +61,8 @@ export class SectionCremeuxComponent {
       id: produit.id,
       nom: produit.nom,
       prix: produit.prix,
-      quantite: Number(produit.quantite)
+      quantite: Number(produit.quantite),
+      type: 'cremeux'
     });
 
 // Réinitialiser la quantité à 1 après l'ajout au panier

@@ -10,6 +10,7 @@ interface Size {
   prix: number;
   maxFruits: number;
   maxSauces: number;
+  description: string;
 }
 
 // Interface pour définir la structure d'un ingrédient (fruit ou sauce)
@@ -27,10 +28,23 @@ interface Ingredient {
 })
 
 export class SectionCreationComponent {
-  // Définition des tailles disponibles
   sizes: Size[] = [
-    { id: 'medium', nom: 'Moyen', prix: 2500, maxFruits: 1, maxSauces: 1 },
-    { id: 'large', nom: 'Maxi', prix: 3500, maxFruits: 2, maxSauces: 2 }
+    {
+      id: 'medium',
+      nom: 'Moyen',
+      prix: 2500,
+      maxFruits: 1,
+      maxSauces: 1,
+      description: '1 fruit + 1 sauce + céréale'
+    },
+    {
+      id: 'large',
+      nom: 'Maxi',
+      prix: 3500,
+      maxFruits: 2,
+      maxSauces: 2,
+      description: '2 fruits + 2 sauces + céréale'
+    }
   ];
 
   // Liste des fruits disponibles
@@ -101,7 +115,8 @@ export class SectionCreationComponent {
         id: Date.now(), // Utiliser un timestamp comme ID unique
         nom: creationNom,
         prix: this.selectedSize!.prix,
-        quantite: this.quantity
+        quantite: this.quantity,
+        type: 'creation'
       });
 
       // Réinitialiser les sélections après l'ajout au panier

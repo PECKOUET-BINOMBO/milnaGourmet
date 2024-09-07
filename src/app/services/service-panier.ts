@@ -6,6 +6,7 @@ export interface ElementPanier {
   nom: string;
   prix: number;
   quantite: number;
+  type: 'cremeux' | 'liquide' | 'creation';
 }
 
 @Injectable({
@@ -19,10 +20,9 @@ export class ServicePanier {
 
   ajouterAuPanier(element: ElementPanier) {
     const panierCourant = this._panier.value;
-    const elementExistant = panierCourant.find(item => item.id === element.id);
+    const elementExistant = panierCourant.find(item => item.id === element.id && item.type === element.type);
 
     if (elementExistant) {
-      // Convertir explicitement en nombre et ajouter
       elementExistant.quantite = Number(elementExistant.quantite) + Number(element.quantite);
     } else {
       panierCourant.push({...element, quantite: Number(element.quantite)});
@@ -31,9 +31,9 @@ export class ServicePanier {
     this._panier.next(panierCourant);
   }
 
-  mettreAJourQuantite(id: number, nouvelleQuantite: number) {
+  mettreAJourQuantite(id: number, type: 'cremeux' | 'liquide' | 'creation', nouvelleQuantite: number) {
     const panierCourant = this._panier.value;
-    const elementAMettreAJour = panierCourant.find(item => item.id === id);
+    const elementAMettreAJour = panierCourant.find(item => item.id === id && item.type === type);
 
     if (elementAMettreAJour) {
       elementAMettreAJour.quantite = Number(nouvelleQuantite);
@@ -41,9 +41,9 @@ export class ServicePanier {
     }
   }
 
-  retirerDuPanier(id: number) {
+  retirerDuPanier(id: number, type: 'cremeux' | 'liquide' | 'creation') {
     const panierCourant = this._panier.value;
-    const panierMisAJour = panierCourant.filter(item => item.id !== id);
+    const panierMisAJour = panierCourant.filter(item => !(item.id === id && item.type === type));
     this._panier.next(panierMisAJour);
   }
 

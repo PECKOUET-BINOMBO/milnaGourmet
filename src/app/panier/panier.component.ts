@@ -9,12 +9,11 @@ import { ServicePanier, ElementPanier } from '../services/service-panier';
   templateUrl: './panier.component.html',
   styleUrl: './panier.component.scss'
 })
-
-
 export class PanierComponent implements OnInit {
   elementsPanier: ElementPanier[] = [];
   total: number = 0;
-  nombreTotalProduits: number = 0; // Propriété pour le nombre total de produits
+  nombreTotalProduits: number = 0;
+  types: ('cremeux' | 'liquide' | 'creation')[] = ['cremeux', 'liquide', 'creation'];
 
   constructor(private servicePanier: ServicePanier) {}
 
@@ -26,38 +25,33 @@ export class PanierComponent implements OnInit {
     });
   }
 
-  // Méthode pour retirer un élément du panier
-  retirerElement(id: number) {
-    this.servicePanier.retirerDuPanier(id);
+  retirerElement(element: ElementPanier) {
+    this.servicePanier.retirerDuPanier(element.id, element.type);
   }
 
-  // Méthode pour augmenter la quantité d'un élément
   augmenterQuantite(element: ElementPanier) {
     this.mettreAJourQuantite(element, element.quantite + 1);
   }
 
-  // Méthode pour diminuer la quantité d'un élément
   diminuerQuantite(element: ElementPanier) {
     if (element.quantite > 1) {
       this.mettreAJourQuantite(element, element.quantite - 1);
     }
   }
 
-  // Méthode pour mettre à jour la quantité d'un élément
   private mettreAJourQuantite(element: ElementPanier, nouvelleQuantite: number) {
-    this.servicePanier.mettreAJourQuantite(element.id, nouvelleQuantite);
-    this.calculerTotal();
-    this.calculerNombreTotalProduits();
+    this.servicePanier.mettreAJourQuantite(element.id, element.type, nouvelleQuantite);
   }
 
-  // Méthode pour calculer le total du panier
   private calculerTotal() {
-    this.total = this.elementsPanier.reduce((sum, element) => sum + element.prix * element.quantite, 0);
+    this.total = this.servicePanier.calculerTotal();
   }
 
-  // Nouvelle méthode pour calculer le nombre total de produits dans le panier
   private calculerNombreTotalProduits() {
-    this.nombreTotalProduits = this.elementsPanier.reduce((sum, element) => sum + element.quantite, 0);
+    this.nombreTotalProduits = this.servicePanier.calculerNombreTotalProduits();
   }
-  
+
+  getElementsParType(type: 'cremeux' | 'liquide' | 'creation'): ElementPanier[] {
+    return this.elementsPanier.filter(element => element.type === type);
+  }
 }
