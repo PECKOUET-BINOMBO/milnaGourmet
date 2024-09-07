@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ServicePanier } from '../services/service-panier';
 
 // Interface pour définir la structure d'une taille de yaourt
 interface Size {
@@ -57,11 +58,13 @@ export class SectionCreationComponent {
   selectedSauces: Ingredient[] = [];
   quantity: number = 1;
 
+  constructor(private servicePanier: ServicePanier) {}
+
   // Méthode appelée lors du changement de taille
   onSizeChange() {
-    // Réinitialiser les sélections si la nouvelle taille a moins d'options
-    this.selectedFruits = this.selectedFruits.slice(0, this.selectedSize?.maxFruits);
-    this.selectedSauces = this.selectedSauces.slice(0, this.selectedSize?.maxSauces);
+    // Réinitialiser complètement les sélections
+    this.selectedFruits = [];
+    this.selectedSauces = [];
   }
 
   // Méthode pour gérer la sélection des fruits
@@ -89,16 +92,23 @@ export class SectionCreationComponent {
            this.selectedSauces.length === this.selectedSize.maxSauces;
   }
 
-  // Méthode pour ajouter au panier (à implémenter)
+  // Méthode pour ajouter au panier
   addToCart() {
     if (this.isSelectionValid()) {
-      console.log('Ajouté au panier:', {
-        size: this.selectedSize,
-        fruits: this.selectedFruits,
-        sauces: this.selectedSauces,
-        quantity: this.quantity
+      const creationNom = `${this.selectedSize!.nom} - ${this.selectedFruits.map(f => f.nom).join(', ')} - ${this.selectedSauces.map(s => s.nom).join(', ')}`;
+
+      this.servicePanier.ajouterAuPanier({
+        id: Date.now(), // Utiliser un timestamp comme ID unique
+        nom: creationNom,
+        prix: this.selectedSize!.prix,
+        quantite: this.quantity
       });
-      // Ici, vous pouvez implémenter la logique pour ajouter au panier
+
+      // Réinitialiser les sélections après l'ajout au panier
+      this.selectedSize = null;
+      this.selectedFruits = [];
+      this.selectedSauces = [];
+      this.quantity = 1;
     }
   }
 }

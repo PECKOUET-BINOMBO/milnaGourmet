@@ -26,15 +26,22 @@
             <div class="flex items-center justify-between">
 
               <!-- Sélecteur de quantité avec ID unique -->
-              <select [attr.id]="'quantity-' + produit.id" Class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <option selected>Quantité</option>
-                <option *ngFor="let i of [1,2,3,4,5]">{{ i }}</option>
+              <select
+              [(ngModel)]="produit.quantite" (change)="changerQuantite(produit, produit.quantite)"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              >
+                <option disabled>Quantité</option>
+                <option *ngFor="let q of quantiteOptions" [value]="q">{{ q }}</option>
               </select>
             </div>
             <!-- Bouton d'ajout au panier avec ID du produit -->
-            <button class="text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center btn" [attr.data-produit-id]="produit.id">
-              Ajouter
-            </button>
+            <button
+            (click)="ajouterAuPanier(produit)"
+            class="btn-produit text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center btn"
+            [attr.data-produit-id]="produit.id"
+          >
+            Ajouter
+          </button>
           </div>
         </div>
       </div>

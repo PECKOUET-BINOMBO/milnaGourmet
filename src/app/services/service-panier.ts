@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-// Interface pour définir la structure d'un élément du panier
 export interface ElementPanier {
   id: number;
   nom: string;
@@ -13,47 +12,48 @@ export interface ElementPanier {
   providedIn: 'root'
 })
 export class ServicePanier {
-  // Tableau pour stocker les éléments du panier
-  private elementsPanier: ElementPanier[] = [];
-  // BehaviorSubject pour émettre les changements du panier
-  private panierSubject = new BehaviorSubject<ElementPanier[]>([]);
+  private _panier = new BehaviorSubject<ElementPanier[]>([]);
+  panier$ = this._panier.asObservable();
 
-  // Observable pour s'abonner aux changements du panier
-  panier$ = this.panierSubject.asObservable();
+  constructor() {}
 
-  // Méthode pour ajouter un élément au panier
   ajouterAuPanier(element: ElementPanier) {
-    const elementExistant = this.elementsPanier.find(e => e.id === element.id);
+    const panierCourant = this._panier.value;
+    const elementExistant = panierCourant.find(item => item.id === element.id);
+
     if (elementExistant) {
-      elementExistant.quantite += element.quantite;
+      // Convertir explicitement en nombre et ajouter
+      elementExistant.quantite = Number(elementExistant.quantite) + Number(element.quantite);
     } else {
-      this.elementsPanier.push(element);
+      panierCourant.push({...element, quantite: Number(element.quantite)});
     }
-    this.panierSubject.next(this.elementsPanier);
+
+    this._panier.next(panierCourant);
   }
 
-  // Méthode pour retirer un élément du panier
+  mettreAJourQuantite(id: number, nouvelleQuantite: number) {
+    const panierCourant = this._panier.value;
+    const elementAMettreAJour = panierCourant.find(item => item.id === id);
+
+    if (elementAMettreAJour) {
+      elementAMettreAJour.quantite = Number(nouvelleQuantite);
+      this._panier.next(panierCourant);
+    }
+  }
+
   retirerDuPanier(id: number) {
-    this.elementsPanier = this.elementsPanier.filter(element => element.id !== id);
-    this.panierSubject.next(this.elementsPanier);
+    const panierCourant = this._panier.value;
+    const panierMisAJour = panierCourant.filter(item => item.id !== id);
+    this._panier.next(panierMisAJour);
   }
 
-  // Méthode pour mettre à jour la quantité d'un élément
-  mettreAJourQuantite(id: number, quantite: number) {
-    const element = this.elementsPanier.find(e => e.id === id);
-    if (element) {
-      element.quantite = quantite;
-      this.panierSubject.next(this.elementsPanier);
-    }
-  }
-
-  // Méthode pour calculer le total du panier
   calculerTotal(): number {
-    return this.elementsPanier.reduce((total, element) => total + element.prix * element.quantite, 0);
+    return this._panier.value.reduce((total, item) =>
+      total + (Number(item.prix) * Number(item.quantite)), 0);
   }
 
-  // Méthode pour obtenir tous les éléments du panier
-  obtenirElementsPanier(): ElementPanier[] {
-    return this.elementsPanier;
+  calculerNombreTotalProduits(): number {
+    return this._panier.value.reduce((total, item) =>
+      total + Number(item.quantite), 0);
   }
 }

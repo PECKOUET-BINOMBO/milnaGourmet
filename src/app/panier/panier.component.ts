@@ -14,6 +14,7 @@ import { ServicePanier, ElementPanier } from '../services/service-panier';
 export class PanierComponent implements OnInit {
   elementsPanier: ElementPanier[] = [];
   total: number = 0;
+  nombreTotalProduits: number = 0; // Propriété pour le nombre total de produits
 
   constructor(private servicePanier: ServicePanier) {}
 
@@ -21,6 +22,7 @@ export class PanierComponent implements OnInit {
     this.servicePanier.panier$.subscribe(elements => {
       this.elementsPanier = elements;
       this.calculerTotal();
+      this.calculerNombreTotalProduits();
     });
   }
 
@@ -45,10 +47,17 @@ export class PanierComponent implements OnInit {
   private mettreAJourQuantite(element: ElementPanier, nouvelleQuantite: number) {
     this.servicePanier.mettreAJourQuantite(element.id, nouvelleQuantite);
     this.calculerTotal();
+    this.calculerNombreTotalProduits();
   }
 
   // Méthode pour calculer le total du panier
   private calculerTotal() {
     this.total = this.elementsPanier.reduce((sum, element) => sum + element.prix * element.quantite, 0);
   }
+
+  // Nouvelle méthode pour calculer le nombre total de produits dans le panier
+  private calculerNombreTotalProduits() {
+    this.nombreTotalProduits = this.elementsPanier.reduce((sum, element) => sum + element.quantite, 0);
+  }
+  
 }

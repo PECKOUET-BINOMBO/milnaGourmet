@@ -12,9 +12,8 @@
           <h2 class="text-lg font-medium text-gray-500 mb-3">Choisissez votre taille</h2>
           <select [(ngModel)]="selectedSize" (ngModelChange)="onSizeChange()" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
-            <option *ngFor="let size of sizes" [ngValue]="size">
-              {{ size.nom }} - {{ size.prix }} FCFA
-            </option>
+            <option [ngValue]="null">Sélectionnez une taille</option>
+            <option *ngFor="let size of sizes" [ngValue]="size">{{ size.nom }} - {{ size.prix }} FCFA</option>
           </select>
         </div>
 
@@ -24,10 +23,10 @@
           <div *ngFor="let fruit of fruits">
             <label>
               <input type="checkbox"
-                     [value]="fruit.id"
-                     (change)="onFruitChange(fruit)"
-                     [disabled]="selectedFruits.length >= (selectedSize?.maxFruits || 0) && !selectedFruits.includes(fruit)">
-              {{ fruit.nom }}
+              [checked]="selectedFruits.includes(fruit)"
+              (change)="onFruitChange(fruit)"
+              [disabled]="!selectedFruits.includes(fruit) && selectedFruits.length >= (selectedSize?.maxFruits || 0)">
+       {{ fruit.nom }}
             </label>
           </div>
         </div>
@@ -38,10 +37,10 @@
           <div *ngFor="let sauce of sauces">
             <label>
               <input type="checkbox"
-                     [value]="sauce.id"
-                     (change)="onSauceChange(sauce)"
-                     [disabled]="selectedSauces.length >= (selectedSize?.maxSauces || 0) && !selectedSauces.includes(sauce)">
-              {{ sauce.nom }}
+              [checked]="selectedSauces.includes(sauce)"
+              (change)="onSauceChange(sauce)"
+              [disabled]="!selectedSauces.includes(sauce) && selectedSauces.length >= (selectedSize?.maxSauces || 0)">
+       {{ sauce.nom }}
             </label>
           </div>
         </div>
@@ -55,7 +54,7 @@
               <option *ngFor="let i of [1,2,3,4,5]" [value]="i">{{ i }}</option>
             </select>
           </div>
-          <button (click)="addToCart()" class="ms-1 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center btn" [disabled]="!isSelectionValid()">
+          <button (click)="addToCart()" [disabled]="!isSelectionValid()" class="ms-1 text-white font-medium rounded-lg text-sm px-5 py-2.5 text-center btn" [disabled]="!isSelectionValid()">
             Ajouter
           </button>
         </div>
