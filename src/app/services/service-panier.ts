@@ -13,8 +13,17 @@ export interface ElementPanier {
   providedIn: 'root'
 })
 export class ServicePanier {
+
   private _panier = new BehaviorSubject<ElementPanier[]>([]);
   panier$ = this._panier.asObservable();
+
+  // Nouveau BehaviorSubject pour gérer l'affichage du message
+  private _afficherMessage = new BehaviorSubject<boolean>(false);
+  afficherMessage$ = this._afficherMessage.asObservable();
+
+  // Nouveau BehaviorSubject pour stocker le nom du produit ajouté
+  private _produitAjoute = new BehaviorSubject<string>('');
+  produitAjoute$ = this._produitAjoute.asObservable();
 
   constructor() {}
 
@@ -29,6 +38,16 @@ export class ServicePanier {
     }
 
     this._panier.next(panierCourant);
+
+    // Déclencher l'affichage du message
+    this._afficherMessage.next(true);
+    this._produitAjoute.next(element.nom);
+
+    // Programmer la disparition du message après 5 secondes
+    setTimeout(() => {
+      this._afficherMessage.next(false);
+    }, 5000);
+
   }
 
   mettreAJourQuantite(id: number, type: 'cremeux' | 'liquide' | 'creation', nouvelleQuantite: number) {

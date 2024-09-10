@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-import { NgOptimizedImage, NgFor, CurrencyPipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { NgOptimizedImage, NgFor, CurrencyPipe, NgIf } from '@angular/common';
 import { ServicePanier } from '../services/service-panier';
 import { FormsModule } from '@angular/forms';
+import { MessagePanierComponent } from '../message-panier/message-panier.component';
+import { Observable } from 'rxjs';
 
 // Définition de l'interface Product pour typer nos produits
 interface Produit {
@@ -17,7 +19,7 @@ interface Produit {
 @Component({
   selector: 'app-section-cremeux',
   standalone: true,
-  imports: [NgOptimizedImage, NgFor, CurrencyPipe, FormsModule],
+  imports: [NgOptimizedImage, NgFor, CurrencyPipe, FormsModule, NgIf, MessagePanierComponent],
   templateUrl: './section-cremeux.component.html',
   styleUrl: './section-cremeux.component.scss'
 })
@@ -53,7 +55,17 @@ export class SectionCremeuxComponent {
   // Tableau pour les options de quantité
   quantiteOptions = [1, 2, 3, 4, 5];
 
+  // Déclarons ces propriétés comme Observable
+  afficherMessage$!: Observable<boolean>;
+  produitAjoute$!: Observable<string>;
+
   constructor(private servicePanier: ServicePanier) {}
+
+  ngOnInit() {
+    // Initialisons les Observables dans ngOnInit
+    this.afficherMessage$ = this.servicePanier.afficherMessage$;
+    this.produitAjoute$ = this.servicePanier.produitAjoute$;
+  }
 
   // Méthode pour ajouter un produit au panier
   ajouterAuPanier(produit: Produit) {
