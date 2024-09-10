@@ -68,7 +68,7 @@
 }
 
 .highlight-text + p{
-  
+
   color: rgb(107 114 128 / var(--tw-text-opacity));
 
 
@@ -133,7 +133,7 @@
 
 
 
-#modalInscription, #modalConnexion{
+#modalInscription, #modalConnexion, #modalProfil {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -169,4 +169,22 @@
 
 .gourmet-section{
   margin:4.5% 0;
+}
+
+.btn-modal
+{
+  color: #06c0ca;
+  top: 5%;
+  right: 5%;
+  border: solid 1px #06c0ca;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+
+.btn-modal:hover
+{
+  color: #34aeb3;
 }

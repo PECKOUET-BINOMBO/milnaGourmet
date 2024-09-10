@@ -12,6 +12,7 @@ import { ContactComponent } from "./contact/contact.component";
 import { MessagePanierComponent } from "./message-panier/message-panier.component";
 import { ServicePanier } from './services/service-panier';
 import { Observable } from 'rxjs';
+import { CompteComponent } from "./compte/compte.component";
 
 @Component({
   selector: 'app-root',
@@ -28,8 +29,9 @@ import { Observable } from 'rxjs';
     RegisterComponent,
     LoginComponent,
     ContactComponent,
-    MessagePanierComponent
-  ],
+    MessagePanierComponent,
+    CompteComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
