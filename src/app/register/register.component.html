@@ -1,14 +1,14 @@
 <!-- modal inscription -->
 <div
   id="modalInscription"
-  class="mt-2 w-64 bg-white rounded-md shadow-lg hidden p-5"
+  class="mt-2 w-64 bg-white rounded-md shadow-lg hidden p-5 modal"
 >
   <form class="form_container relative">
-    <button class="absolute btn-modal" onclick="closeModal('modalInscription')">
+    <span class="absolute btn-modal cursor-pointer" onclick="closeModal('modalInscription')">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
-    </button>
+    </span>
     <div class="logo_container flex items-center justify-center">
       <img
         [ngSrc]="logoUrl"
@@ -149,13 +149,13 @@
       <span>S'inscrire</span>
     </button>
 
-    <div class="separator">
+    <!-- <div class="separator">
       <hr class="line" />
       <span>Ou</span>
       <hr class="line" />
     </div>
-    <button title="S'inscrire" type="submit" class="sign-in_ggl">
-      <a id="inscription">Se connecter</a>
-    </button>
+    <button id="loginModal" title="S'inscrire" type="button" class="sign-in_ggl">
+      <a href="#">Se connecter</a>
+    </button> -->
   </form>
 </div>

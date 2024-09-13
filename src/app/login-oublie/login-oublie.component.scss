@@ -1,12 +1,4 @@
-.register-champ{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto;
-  gap: 10px;
-}
-
-
-
+/* From Uiverse.io by zanina-yassine */
 .form_container {
   margin: auto;
   width: fit-content;
@@ -26,15 +18,11 @@
 }
 
 @media screen and (max-width:767px ){
-  .register-champ{
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    gap: 10px;
-  }
+
   .form_container {
     width: 100%;}
 }
+
 
 .logo_container {
   box-sizing: border-box;

@@ -13,6 +13,7 @@ import { MessagePanierComponent } from "./message-panier/message-panier.componen
 import { ServicePanier } from './services/service-panier';
 import { Observable } from 'rxjs';
 import { CompteComponent } from "./compte/compte.component";
+import { LoginOublieComponent } from "./login-oublie/login-oublie.component";
 
 @Component({
   selector: 'app-root',
@@ -30,7 +31,8 @@ import { CompteComponent } from "./compte/compte.component";
     LoginComponent,
     ContactComponent,
     MessagePanierComponent,
-    CompteComponent
+    CompteComponent,
+    LoginOublieComponent
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

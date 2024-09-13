@@ -29,8 +29,24 @@
       <i class="fa-solid fa-arrow-up-long"></i>
     </button>
 
+    
+
     <script>
-      ////////////////////////// Fonction pour faire défiler la page vers le haut/////////////////
+      // Constantes pour les sélecteurs fréquemment utilisés
+      const SELECTORS = {
+        scrollUpBtn: "#scrollUpBtn",
+        modalConnexion: "#modalConnexion",
+        modalInscription: "#modalInscription",
+        modalLoginOublie: "#modalLoginOublie",
+        profil: "#profil",
+        modalProfil: "#modalProfil",
+        compte: "#compte",
+        compteDropdown: "#compteDropdown",
+        cartButton: "#cartButton",
+        cartDropdown: "#cartDropdown",
+      };
+
+      // Fonction pour faire défiler la page vers le haut
       function scrollToTop() {
         window.scrollTo({
           top: 0,
@@ -38,112 +54,142 @@
         });
       }
 
-      // Afficher ou masquer le bouton en fonction de la position de défilement
-      window.onscroll = function () {
-        var scrollUpBtn = document.getElementById("scrollUpBtn");
-        if (
-          document.body.scrollTop > 20 ||
-          document.documentElement.scrollTop > 20
-        ) {
-          scrollUpBtn.style.display = "block";
-        } else {
-          scrollUpBtn.style.display = "none";
-        }
-      };
+      // Gestion de l'affichage du bouton de défilement
+      function handleScrollButton() {
+        const scrollUpBtn = document.querySelector(SELECTORS.scrollUpBtn);
+        const shouldDisplay = document.documentElement.scrollTop > 20;
+        scrollUpBtn.style.display = shouldDisplay ? "block" : "none";
+      }
 
-      //////////////////////////////fermer modal////////////////////
+      // Fonction pour fermer un modal
       function closeModal(modalId) {
         document.getElementById(modalId).classList.add("hidden");
       }
 
-      // Ajouter un écouteur d'événements pour le clic sur le bouton
-      document
-        .getElementById("scrollUpBtn")
-        .addEventListener("click", scrollToTop);
-
-      //////////////////////////////modal inscription/////////////////////////////
-      const inscription = document.getElementById("inscription");
-      const modalInscription = document.getElementById("modalInscription");
-
-      inscription.addEventListener("click", () => {
-        modalInscription.classList.toggle("hidden");
-      });
-
-      // Fermer le dropdown si on clique en dehors
-      document.addEventListener("click", (event) => {
-        if (
-          !inscription.contains(event.target) &&
-          !modalInscription.contains(event.target)
-        ) {
-          modalInscription.classList.add("hidden");
+      // Fonction pour basculer l'affichage d'un modal
+      function toggleModal(modalId, show) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.style.display = show ? "block" : "none";
         }
-      });
+      }
 
-      //////////////////////////////modal connexion
-      const connexion = document.getElementById("connexion");
-      const modalConnexion = document.getElementById("modalConnexion");
+      // Configuration des déclencheurs de modaux
+      function setupModalTriggers() {
+        const triggers = {
+          loginModal: SELECTORS.modalConnexion,
+          registerModal: SELECTORS.modalInscription,
+          forgotPasswordModal: SELECTORS.modalLoginOublie,
+        };
 
-      connexion.addEventListener("click", () => {
-        modalConnexion.classList.toggle("hidden");
-      });
-
-      // Fermer le dropdown si on clique en dehors
-      document.addEventListener("click", (event) => {
-        if (
-          !connexion.contains(event.target) &&
-          !modalConnexion.contains(event.target)
-        ) {
-          modalConnexion.classList.add("hidden");
-        }
-      });
-
-      //////////////////////////////modal compte/////////////////////////////
-      const profil = document.getElementById("profil");
-      const modalProfil = document.getElementById("modalProfil");
-
-      profil.addEventListener("click", () => {
-        modalProfil.classList.toggle("hidden");
-      });
-
-      // Fermer le dropdown si on clique en dehors
-      document.addEventListener("click", (event) => {
-        if (
-          !profil.contains(event.target) &&
-          !modalProfil.contains(event.target)
-        ) {
-          modalProfil.classList.add("hidden");
-        }
-      });
-
-      ///////////////////////DROPDOWN COMPTE////////////////////////////
-
-      const compte = document.getElementById("compte");
-      const compteDropdown = document.getElementById("compteDropdown");
-
-      compte.addEventListener("click", () => {
-        compteDropdown.classList.toggle("hidden");
-      });
-
-      // Fermer le dropdown si on clique en dehors
-      document.addEventListener("click", (event) => {
-        if (
-          !compte.contains(event.target) &&
-          !compteDropdown.contains(event.target)
-        ) {
-          compteDropdown.classList.add("hidden");
-        }
-      });
-
-      ///////////////////////DROPDOWN PANIER////////////////////////////
-      document.addEventListener("DOMContentLoaded", (event) => {
-        const cartButton = document.getElementById("cartButton");
-        const cartDropdown = document.getElementById("cartDropdown");
-
-        cartButton.addEventListener("click", () => {
-          cartDropdown.classList.toggle("hidden");
+        Object.entries(triggers).forEach(([triggerId, modalId]) => {
+          const trigger = document.getElementById(triggerId);
+          if (trigger) {
+            trigger.addEventListener("click", (event) => {
+              event.preventDefault();
+              toggleModal(modalId, true);
+            });
+          }
         });
+      }
 
-        // Fermer le dropdown si on clique en dehors
+      // Configuration de la visibilité des modaux
+      function setupModalVisibility(triggerId, modalId) {
+        const trigger = document.getElementById(triggerId);
+        const modal = document.getElementById(modalId);
+
+        if (trigger && modal) {
+          trigger.addEventListener("click", (event) => {
+            event.preventDefault();
+            modal.classList.remove("hidden");
+          });
+
+          document.addEventListener("click", (event) => {
+            if (
+              !trigger.contains(event.target) &&
+              !modal.contains(event.target)
+            ) {
+              modal.classList.add("hidden");
+            }
+          });
+        }
+      }
+
+      // Gestion du mot de passe oublié
+      function setupForgotPassword() {
+        const forgotPasswordModal = document.querySelector(
+          SELECTORS.modalLoginOublie
+        );
+        const forgotPasswordLink =
+          document.getElementById("forgotPasswordLink");
+        const modalConnexion = document.querySelector(SELECTORS.modalConnexion);
+
+        if (forgotPasswordLink && forgotPasswordModal && modalConnexion) {
+          forgotPasswordLink.addEventListener("click", (event) => {
+            event.preventDefault();
+            modalConnexion.classList.add("hidden");
+            forgotPasswordModal.classList.remove("hidden");
+          });
+
+          // Fermeture du modal en cliquant en dehors
+          document.addEventListener("click", (event) => {
+            if (
+              !forgotPasswordLink.contains(event.target) &&
+              !forgotPasswordModal.contains(event.target)
+            ) {
+              forgotPasswordModal.classList.add("hidden");
+            }
+          });
+        }
+      }
+
+      // Configuration du dropdown du profil
+      function setupProfileDropdown() {
+        const profil = document.querySelector(SELECTORS.profil);
+        const modalProfil = document.querySelector(SELECTORS.modalProfil);
+
+        profil.addEventListener("click", () =>
+          modalProfil.classList.remove("hidden")
+        );
+
+        document.addEventListener("click", (event) => {
+          if (
+            !profil.contains(event.target) &&
+            !modalProfil.contains(event.target)
+          ) {
+            modalProfil.classList.add("hidden");
+          }
+        });
+      }
+
+      // Configuration du dropdown du compte
+      function setupAccountDropdown() {
+        const compte = document.querySelector(SELECTORS.compte);
+        const compteDropdown = document.querySelector(SELECTORS.compteDropdown);
+
+        compte.addEventListener("click", () =>
+          compteDropdown.classList.remove("hidden")
+        );
+
+        document.addEventListener("click", (event) => {
+          if (
+            !compte.contains(event.target) &&
+            !compteDropdown.contains(event.target)
+          ) {
+            compteDropdown.classList.add("hidden");
+          }
+        });
+      }
+
+      // Configuration du dropdown du panier
+      function setupCartDropdown() {
+        const cartButton = document.querySelector(SELECTORS.cartButton);
+        const cartDropdown = document.querySelector(SELECTORS.cartDropdown);
+
+        cartButton.addEventListener("click", () =>
+          cartDropdown.classList.remove("hidden")
+        );
+
         document.addEventListener("click", (event) => {
           if (
             !cartButton.contains(event.target) &&
@@ -152,8 +198,30 @@
             cartDropdown.classList.add("hidden");
           }
         });
-      });
+      }
+
+      // Fonction d'initialisation principale
+      function initializeApp() {
+        setupModalTriggers();
+        setupModalVisibility("inscription", "modalInscription");
+        setupModalVisibility("connexion", "modalConnexion");
+        setupForgotPassword();
+        setupProfileDropdown();
+        setupAccountDropdown();
+        setupCartDropdown();
+
+        const scrollUpBtn = document.querySelector(SELECTORS.scrollUpBtn);
+        if (scrollUpBtn) {
+          scrollUpBtn.addEventListener("click", scrollToTop);
+        }
+
+        window.addEventListener("scroll", handleScrollButton);
+      }
+
+      // Exécuter l'initialisation lorsque le DOM est chargé
+      document.addEventListener("DOMContentLoaded", initializeApp);
     </script>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script src="scripts.js"></script>
   </body>
 </html>
