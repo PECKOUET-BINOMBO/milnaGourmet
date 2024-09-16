@@ -3,10 +3,28 @@
   id="modalInscription"
   class="mt-2 w-64 bg-white rounded-md shadow-lg hidden p-5 modal"
 >
-  <form class="form_container relative">
-    <span class="absolute btn-modal cursor-pointer" onclick="closeModal('modalInscription')">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="form_container relative"
+  >
+    <span
+      class="absolute btn-modal cursor-pointer"
+      onclick="closeModal('modalInscription')"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
       </svg>
     </span>
     <div class="logo_container flex items-center justify-center">
@@ -27,22 +45,100 @@
       >
     </div>
 
+    <div
+      *ngIf="errorMessage"
+      id="alert-2"
+      class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+      role="alert"
+    >
+      <svg
+        class="flex-shrink-0 w-4 h-4"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+        />
+      </svg>
+      <span class="sr-only">Info</span>
+      <div class="ms-3 text-sm font-medium">
+        {{ errorMessage }}
+      </div>
+    </div>
+
+    <div
+      *ngIf="successMessage"
+      id="alert-3"
+      class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+      role="alert"
+    >
+      <svg
+        class="flex-shrink-0 w-4 h-4"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+        />
+      </svg>
+      <span class="sr-only">Info</span>
+      <div class="ms-3 text-sm font-medium">
+        {{ successMessage }}
+      </div>
+      
+    </div>
+
     <div class="grid register-champ w-full mt-4">
       <!-- Nom -->
       <div class="input_container">
         <label class="input_label" for="name">Nom ou Prénoms</label>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="icon" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke-linejoin="round"
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          class="icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#000000"
+          stroke-width="2"
           stroke-linecap="round"
-          stroke-width="1.5"
-          stroke="#141B34" d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          stroke-linejoin="round"
+        >
+          <path
+            stroke-linejoin="round"
+            stroke-linecap="round"
+            stroke-width="1.5"
+            stroke="#141B34"
+            d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"
+          ></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
         <input
           placeholder="milna Gourmet"
           title="Votre nom"
-          name="name"
+          formControlName="name"
           type="text"
           class="input_field"
           id="name"
         />
+        <div
+          *ngIf="
+            form.get('name')?.invalid &&
+            (form.get('name')?.dirty || form.get('name')?.touched)
+          "
+          class="text-red-500 text-xs mt-1"
+        >
+          <p *ngIf="form.get('name')?.errors?.['required']">
+            Le nom est requis.
+          </p>
+          <p *ngIf="form.get('name')?.errors?.['minlength']">
+            Le nom doit contenir au moins 2 caractères.
+          </p>
+        </div>
       </div>
       <!-- Email -->
       <div class="input_container">
@@ -70,13 +166,27 @@
           ></path>
         </svg>
         <input
-          placeholder="name@mail.com"
+          placeholder="milnagourmet@mail.com"
           title="Votre e-mail"
-          name="input-name"
+          formControlName="email"
           type="email"
           class="input_field"
           id="email"
         />
+        <div
+          *ngIf="
+            form.get('email')?.invalid &&
+            (form.get('email')?.dirty || form.get('email')?.touched)
+          "
+          class="text-red-500 text-xs mt-1"
+        >
+          <p *ngIf="form.get('email')?.errors?.['required']">
+            L'email est requis.
+          </p>
+          <p *ngIf="form.get('email')?.errors?.['email']">
+            Veuillez entrer une adresse email valide.
+          </p>
+        </div>
       </div>
     </div>
 
@@ -84,32 +194,87 @@
       <!-- Tel -->
       <div class="input_container">
         <label class="input_label" for="tel">Numéro WhatsApp</label>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="icon" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          class="icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#000000"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+          <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
         <input
           placeholder="xxxxxxxx"
           title="Numéro WhatsApp"
-          name="tel"
+          formControlName="tel"
           type="tel"
           class="input_field"
           id="tel"
         />
+        <div
+          *ngIf="
+            form.get('tel')?.invalid &&
+            (form.get('tel')?.dirty || form.get('tel')?.touched)
+          "
+          class="text-red-500 text-xs mt-1"
+        >
+          <p *ngIf="form.get('tel')?.errors?.['required']">
+            Le numéro de téléphone est requis.
+          </p>
+          <p *ngIf="form.get('tel')?.errors?.['pattern']">
+            Veuillez entrer un numéro de téléphone valide au Gabon.
+          </p>
+        </div>
       </div>
       <!-- Adresse -->
       <div class="input_container">
         <label class="input_label" for="adresse">Point de livraison</label>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="icon" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg>
-        <select name="adresse" id="adresse" class="input_field">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          class="icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#000000"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"
+          />
+          <circle cx="12" cy="10" r="3" />
+        </svg>
+        <select formControlName="adresse" id="adresse" class="input_field">
           <option value="">Adresse</option>
           <option value="adresse1">Adresse 1</option>
           <option value="adresse2">Adresse 2</option>
           <option value="adresse3">Adresse 3</option>
         </select>
+        <div
+          *ngIf="
+            form.get('adresse')?.invalid &&
+            (form.get('adresse')?.dirty || form.get('adresse')?.touched)
+          "
+          class="text-red-500 text-xs mt-1"
+        >
+          <p *ngIf="form.get('adresse')?.errors?.['required']">
+            L'adresse est requise.
+          </p>
+        </div>
       </div>
     </div>
 
     <!-- password -->
     <div class="input_container">
-      <label class="input_label" for="password_field">Password</label>
+      <label class="input_label" for="password">Mots de passe</label>
       <svg
         fill="none"
         viewBox="0 0 24 24"
@@ -138,14 +303,28 @@
       </svg>
       <input
         placeholder="Password"
-        title="Inpit title"
-        name="input-name"
+        title="Mots de passe"
+        formControlName="password"
         type="password"
         class="input_field"
-        id="password_field"
+        id="password"
       />
+      <div
+        *ngIf="
+          form.get('password')?.invalid &&
+          (form.get('password')?.dirty || form.get('password')?.touched)
+        "
+        class="text-red-500 text-xs mt-1"
+      >
+        <p *ngIf="form.get('password')?.errors?.['required']">
+          Le mot de passe est requis.
+        </p>
+        <p *ngIf="form.get('password')?.errors?.['minlength']">
+          Le mot de passe doit contenir au moins 8 caractères.
+        </p>
+      </div>
     </div>
-    <button title="Sign In" type="submit" class="sign-in_btn">
+    <button title="Inscription" type="submit" class="sign-in_btn">
       <span>S'inscrire</span>
     </button>
 

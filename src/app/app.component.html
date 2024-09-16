@@ -1,11 +1,18 @@
 <app-header></app-header>
-<app-section-cremeux></app-section-cremeux>
-<app-section-liquide></app-section-liquide>
-<app-section-creation></app-section-creation>
-<app-register></app-register>
-<app-login></app-login>
-<app-login-oublie></app-login-oublie>
-<app-compte></app-compte>
-<app-contact></app-contact>
+
+
+<main>
+  <!-- Le routeur affichera ici le composant correspondant à la route actuelle -->
+  
+  <app-section-cremeux></app-section-cremeux>
+  <app-section-liquide></app-section-liquide>
+  <app-section-creation></app-section-creation>
+  <app-register></app-register>
+  <app-login></app-login>
+  <app-login-oublie></app-login-oublie>
+  <app-compte></app-compte>
+  <app-contact></app-contact>
+  <app-message-panier *ngIf="(afficherMessage$ | async) === true" [produitNom]="(produitAjoute$ | async) || ''"></app-message-panier>
+</main>
+
 <app-footer></app-footer>
-<app-message-panier *ngIf="(afficherMessage$ | async) === true" [produitNom]="(produitAjoute$ | async) || ''"></app-message-panier>

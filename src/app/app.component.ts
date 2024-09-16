@@ -48,4 +48,8 @@ export class AppComponent implements OnInit {
     this.afficherMessage$ = this.servicePanier.afficherMessage$;
     this.produitAjoute$ = this.servicePanier.produitAjoute$;
   }
+
+  logout(): void {
+    console.log('Déconnexion');
+  }
 }

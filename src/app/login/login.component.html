@@ -2,10 +2,28 @@
   id="modalConnexion"
   class="mt-2 w-64 bg-white rounded-md shadow-lg hidden p-5 modal"
 >
-  <form class="form_container relative">
-    <span  class="absolute btn-modal cursor-pointer" onclick="closeModal('modalConnexion')">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="form_container relative"
+  >
+    <span
+      class="absolute btn-modal cursor-pointer"
+      onclick="closeModal('modalConnexion')"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
       </svg>
     </span>
     <div class="logo_container flex items-center justify-center">
@@ -22,8 +40,54 @@
       <p class="title">Connectez-vous à votre compte</p>
     </div>
 
-    <div class="input_container  mt-3">
-      <label class="input_label" for="email_field">Email</label>
+    <div
+      *ngIf="errorMessage"
+      id="alert-2"
+      class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+      role="alert"
+    >
+      <svg
+        class="flex-shrink-0 w-4 h-4"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+        />
+      </svg>
+      <span class="sr-only">Info</span>
+      <div class="ms-3 text-sm font-medium">
+        {{ errorMessage }}
+      </div>
+    </div>
+
+    <div
+      *ngIf="successMessage"
+      id="alert-3"
+      class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+      role="alert"
+    >
+      <svg
+        class="flex-shrink-0 w-4 h-4"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+        />
+      </svg>
+      <span class="sr-only">Info</span>
+      <div class="ms-3 text-sm font-medium">
+        {{ successMessage }}
+      </div>
+    </div>
+
+    <div class="input_container mt-3">
+      <label class="input_label" for="email">E-mail</label>
       <svg
         fill="none"
         viewBox="0 0 24 24"
@@ -47,16 +111,30 @@
         ></path>
       </svg>
       <input
-        placeholder="name@mail.com"
-        title="Inpit title"
-        name="input-name"
+        placeholder="milnagourmet@mail.com"
+        title="E-mail"
+        formControlName="email"
         type="text"
         class="input_field"
-        id="email_field"
+        id="email"
       />
+      <div
+        *ngIf="
+          form.get('email')?.invalid &&
+          (form.get('email')?.dirty || form.get('email')?.touched)
+        "
+        class="text-red-500 text-xs mt-1"
+      >
+        <div *ngIf="form.get('email')?.errors?.['required']">
+          L'email est requis.
+        </div>
+        <div *ngIf="form.get('email')?.errors?.['email']">
+          Veuillez entrer une adresse email valide.
+        </div>
+      </div>
     </div>
     <div class="input_container">
-      <label class="input_label" for="password_field">Password</label>
+      <label class="input_label" for="password">Mots de passe</label>
       <svg
         fill="none"
         viewBox="0 0 24 24"
@@ -84,15 +162,29 @@
         ></path>
       </svg>
       <input
-        placeholder="Password"
-        title="Inpit title"
-        name="input-name"
+        placeholder="******************"
+        title="Mot de passe"
+        formControlName="password"
         type="password"
         class="input_field"
-        id="password_field"
+        id="password"
       />
+      <div
+        *ngIf="
+          form.get('password')?.invalid &&
+          (form.get('password')?.dirty || form.get('password')?.touched)
+        "
+        class="text-red-500 text-xs mt-1"
+      >
+        <div *ngIf="form.get('password')?.errors?.['required']">
+          Le mot de passe est requis.
+        </div>
+        <div *ngIf="form.get('password')?.errors?.['minlength']">
+          Le mot de passe doit contenir au moins 8 caractères.
+        </div>
+      </div>
     </div>
-    <button title="Sign In" type="submit" class="sign-in_btn">
+    <button title="Connexion" type="submit" class="sign-in_btn">
       <span>Se connecter</span>
     </button>
 
@@ -105,6 +197,8 @@
       <a href="#">S'inscrire</a>
     </button> -->
 
-    <span id="forgotPasswordLink" class="note cursor-pointer">Mots de passe oublié ?</span>
+    <span id="forgotPasswordLink" class="note cursor-pointer"
+      >Mots de passe oublié ?</span
+    >
   </form>
 </div>

@@ -150,6 +150,14 @@
   background: rgba(000, 000, 000, 0.1);
 }
 
+@media screen and (max-width:767px) {
+
+  #modalInscription, #modalConnexion, #modalProfil, #modalLoginOublie {
+    width: 100%;
+  }
+
+}
+
 .scroll-up-btn {
   display: block;
   width: 45px;
