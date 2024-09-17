@@ -1,0 +1,33 @@
+import { Component, OnInit } from '@angular/core';
+import { HeaderComponent } from "../header/header.component";
+import { SectionCremeuxComponent } from "../section-cremeux/section-cremeux.component";
+import { SectionLiquideComponent } from "../section-liquide/section-liquide.component";
+import { SectionCreationComponent } from "../section-creation/section-creation.component";
+import { ContactComponent } from "../contact/contact.component";
+import { FooterComponent } from "../footer/footer.component";
+import { AsyncPipe, NgIf } from '@angular/common';
+import { Observable } from 'rxjs';
+import { MessagePanierComponent } from "../message-panier/message-panier.component";
+import { ServicePanier } from '../services/service-panier';
+
+@Component({
+  selector: 'app-accueil',
+  standalone: true,
+  imports: [HeaderComponent, SectionCremeuxComponent, SectionLiquideComponent, SectionCreationComponent, ContactComponent, FooterComponent, AsyncPipe, NgIf, MessagePanierComponent
+  ],
+  templateUrl: './accueil.component.html',
+  styleUrl: './accueil.component.scss'
+})
+
+export class AccueilComponent implements OnInit {
+  title = 'milnaGourmet';
+  afficherMessage$!: Observable<boolean>;
+  produitAjoute$!: Observable<string>;
+
+  constructor(private servicePanier: ServicePanier) {}
+
+  ngOnInit() {
+    this.afficherMessage$ = this.servicePanier.afficherMessage$;
+    this.produitAjoute$ = this.servicePanier.produitAjoute$;
+  }
+}

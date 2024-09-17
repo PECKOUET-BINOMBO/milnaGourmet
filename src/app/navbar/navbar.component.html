@@ -3,7 +3,7 @@
     class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
   >
     <a
-      (click)="scrollToElement('accueil')"
+      routerLink="/"
       class="flex items-center space-x-3 rtl:space-x-reverse"
     >
       <img
@@ -57,74 +57,74 @@
       >
         <li>
           <a
-            (click)="scrollToElement('accueil')"
+            routerLink="/"
             class="cursor-pointer principal block py-2 px-3 md:bg-transparent md:p-0"
             aria-current="page"
             >Accueil</a
           >
         </li>
         <li>
-          <a
+          <span
             (click)="scrollToElement('cremeux')"
             class="cursor-pointer principal block py-2 px-3 md:p-0"
-            >Crémeux</a
+            >Crémeux</span
           >
         </li>
         <li>
-          <a
+          <span
             (click)="scrollToElement('liquide')"
             class="cursor-pointer principal block py-2 px-3 md:p-0"
-            >Liquides</a
+            >Liquides</span
           >
         </li>
         <li>
-          <a
+          <span
             (click)="scrollToElement('creation')"
             class="cursor-pointer principal block py-2 px-3 md:p-0"
-            >Créations</a
+            >Créations</span
           >
         </li>
         <li>
-          <a
+          <span
           (click)="scrollToElement('contact')"
             class="cursor-pointer principal block py-2 px-3 md:p-0"
-            >Contacts</a
+            >Contacts</span
           >
         </li>
         <li>
-          <a
-          id="compte"
-            class="cursor-pointer principal block py-2 px-3 md:p-0 relative"
-            > <img [ngSrc]="iconCompte" alt="icon compte"  width="50" height="50" /> </a
+          <span
+          id="userIcon"
+            class="cursor-pointer principal block py-2 px-3 md:p-0 relative flex items-center justify-center"
+            > <span>Paul</span> <img [ngSrc]="iconCompte" alt="icon compte"  width="20" height="20" /> </span
           >
-          <ul id="compteDropdown" class="font-normal absolute hidden z-10 mt-2  bg-white rounded-md shadow-lg">
+          <ul id="userDropdown" class="font-normal absolute hidden z-10 mt-2  bg-white rounded-md shadow-lg">
             <li class="py-1 px-2">
-              <a id="inscription"
+              <a routerLink="/inscription" id="inscriptionLink"
 
                 class="cursor-pointer principal block py-2 px-3 md:p-0"
                 >S'inscrire</a
               >
             </li>
             <li class="py-1 px-2">
-              <a id="connexion"
+              <a routerLink="/connexion" id="connexionLink"
 
                 class="cursor-pointer principal block py-2 px-3 md:p-0"
                 >Se connecter</a
               >
             </li>
             <li class="py-1 px-2">
-              <a id="profil"
+              <span id="compteLink"
 
                 class="cursor-pointer principal block py-2 px-3 md:p-0"
-                >Mon compte</a
+                >Mon compte</span
               >
             </li>
             <li class="py-1 px-2">
-              <a
+              <button id="deconnexionLink"
 
               (click)="logout()"
                 class="cursor-pointer principal block py-2 px-3 md:p-0"
-                >Se déconnecter</a
+                >Se déconnecter</button
               >
             </li>
           </ul>
@@ -134,3 +134,4 @@
     </div>
   </div>
 </nav>
+

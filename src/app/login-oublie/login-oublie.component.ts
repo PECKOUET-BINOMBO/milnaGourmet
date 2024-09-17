@@ -3,11 +3,12 @@ import { Component, inject } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login-oublie',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, NgOptimizedImage],
+  imports: [ReactiveFormsModule, CommonModule, NgOptimizedImage, RouterLink],
   templateUrl: './login-oublie.component.html',
   styleUrl: './login-oublie.component.scss'
 })

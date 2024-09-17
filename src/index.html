@@ -29,156 +29,79 @@
       <i class="fa-solid fa-arrow-up-long"></i>
     </button>
 
-    
-
     <script>
       // Constantes pour les sélecteurs fréquemment utilisés
       const SELECTORS = {
         scrollUpBtn: "#scrollUpBtn",
-        modalConnexion: "#modalConnexion",
-        modalInscription: "#modalInscription",
-        modalLoginOublie: "#modalLoginOublie",
-        profil: "#profil",
-        modalProfil: "#modalProfil",
-        compte: "#compte",
-        compteDropdown: "#compteDropdown",
+        userIcon: "#userIcon",
+        userDropdown: "#userDropdown",
+        compteLink: "#compteLink",
+        modalCompte: "#modalCompte",
+        closeModalBtn: "#modalCompte .btn-modal",
         cartButton: "#cartButton",
         cartDropdown: "#cartDropdown",
       };
 
-      // Fonction pour faire défiler la page vers le haut
-      function scrollToTop() {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      }
-
-      // Gestion de l'affichage du bouton de défilement
-      function handleScrollButton() {
-        const scrollUpBtn = document.querySelector(SELECTORS.scrollUpBtn);
-        const shouldDisplay = document.documentElement.scrollTop > 20;
-        scrollUpBtn.style.display = shouldDisplay ? "block" : "none";
-      }
-
-      // Fonction pour fermer un modal
-      function closeModal(modalId) {
-        document.getElementById(modalId).classList.add("hidden");
-      }
-
-      // Fonction pour basculer l'affichage d'un modal
-      function toggleModal(modalId, show) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-          modal.style.display = show ? "block" : "none";
+      // Fonction pour basculer l'affichage d'un élément
+      function toggleElement(element, show) {
+        if (element) {
+          element.classList.toggle("hidden", !show);
         }
       }
 
-      // Configuration des déclencheurs de modaux
-      function setupModalTriggers() {
-        const triggers = {
-          loginModal: SELECTORS.modalConnexion,
-          registerModal: SELECTORS.modalInscription,
-          forgotPasswordModal: SELECTORS.modalLoginOublie,
-        };
+      // Configuration du dropdown utilisateur et du modal compte
+      function setupUserInteractions() {
+        const userIcon = document.querySelector(SELECTORS.userIcon);
+        const userDropdown = document.querySelector(SELECTORS.userDropdown);
+        const compteLink = document.querySelector(SELECTORS.compteLink);
+        const modalCompte = document.querySelector(SELECTORS.modalCompte);
+        const closeModalBtn = document.querySelector(SELECTORS.closeModalBtn);
 
-        Object.entries(triggers).forEach(([triggerId, modalId]) => {
-          const trigger = document.getElementById(triggerId);
-          if (trigger) {
-            trigger.addEventListener("click", (event) => {
-              event.preventDefault();
-              toggleModal(modalId, true);
+        if (userIcon && userDropdown) {
+          userIcon.addEventListener("click", (event) => {
+            event.stopPropagation();
+            toggleElement(userDropdown, true);
+          });
+
+          document.addEventListener("click", (event) => {
+            if (
+              !userIcon.contains(event.target) &&
+              !userDropdown.contains(event.target)
+            ) {
+              toggleElement(userDropdown, false);
+            }
+          });
+        }
+
+        if (compteLink && modalCompte) {
+          compteLink.addEventListener("click", (event) => {
+            event.preventDefault();
+            toggleElement(modalCompte, true);
+          });
+
+          // Fermer le modal quand on clique sur la croix
+          if (closeModalBtn) {
+            closeModalBtn.addEventListener("click", () => {
+              toggleElement(modalCompte, false);
             });
           }
-        });
-      }
 
-      // Configuration de la visibilité des modaux
-      function setupModalVisibility(triggerId, modalId) {
-        const trigger = document.getElementById(triggerId);
-        const modal = document.getElementById(modalId);
-
-        if (trigger && modal) {
-          trigger.addEventListener("click", (event) => {
-            event.preventDefault();
-            modal.classList.remove("hidden");
-          });
-
+          // Fermer le modal quand on clique en dehors
           document.addEventListener("click", (event) => {
+            if (modalCompte.classList.contains("hidden")) return;
             if (
-              !trigger.contains(event.target) &&
-              !modal.contains(event.target)
+              !modalCompte.contains(event.target) &&
+              event.target !== compteLink
             ) {
-              modal.classList.add("hidden");
+              toggleElement(modalCompte, false);
             }
           });
-        }
-      }
 
-      // Gestion du mot de passe oublié
-      function setupForgotPassword() {
-        const forgotPasswordModal = document.querySelector(
-          SELECTORS.modalLoginOublie
-        );
-        const forgotPasswordLink =
-          document.getElementById("forgotPasswordLink");
-        const modalConnexion = document.querySelector(SELECTORS.modalConnexion);
-
-        if (forgotPasswordLink && forgotPasswordModal && modalConnexion) {
-          forgotPasswordLink.addEventListener("click", (event) => {
-            event.preventDefault();
-            modalConnexion.classList.add("hidden");
-            forgotPasswordModal.classList.remove("hidden");
-          });
-
-          // Fermeture du modal en cliquant en dehors
-          document.addEventListener("click", (event) => {
-            if (
-              !forgotPasswordLink.contains(event.target) &&
-              !forgotPasswordModal.contains(event.target)
-            ) {
-              forgotPasswordModal.classList.add("hidden");
-            }
+          // Empêcher la fermeture du modal quand on clique à l'intérieur
+          modalCompte.addEventListener("click", (event) => {
+            event.stopPropagation();
           });
         }
-      }
-
-      // Configuration du dropdown du profil
-      function setupProfileDropdown() {
-        const profil = document.querySelector(SELECTORS.profil);
-        const modalProfil = document.querySelector(SELECTORS.modalProfil);
-
-        profil.addEventListener("click", () =>
-          modalProfil.classList.remove("hidden")
-        );
-
-        document.addEventListener("click", (event) => {
-          if (
-            !profil.contains(event.target) &&
-            !modalProfil.contains(event.target)
-          ) {
-            modalProfil.classList.add("hidden");
-          }
-        });
-      }
-
-      // Configuration du dropdown du compte
-      function setupAccountDropdown() {
-        const compte = document.querySelector(SELECTORS.compte);
-        const compteDropdown = document.querySelector(SELECTORS.compteDropdown);
-
-        compte.addEventListener("click", () =>
-          compteDropdown.classList.remove("hidden")
-        );
-
-        document.addEventListener("click", (event) => {
-          if (
-            !compte.contains(event.target) &&
-            !compteDropdown.contains(event.target)
-          ) {
-            compteDropdown.classList.add("hidden");
-          }
-        });
       }
 
       // Configuration du dropdown du panier
@@ -186,36 +109,40 @@
         const cartButton = document.querySelector(SELECTORS.cartButton);
         const cartDropdown = document.querySelector(SELECTORS.cartDropdown);
 
-        cartButton.addEventListener("click", () =>
-          cartDropdown.classList.remove("hidden")
-        );
+        if (cartButton && cartDropdown) {
+          cartButton.addEventListener("click", () =>
+            toggleElement(cartDropdown, true)
+          );
 
-        document.addEventListener("click", (event) => {
-          if (
-            !cartButton.contains(event.target) &&
-            !cartDropdown.contains(event.target)
-          ) {
-            cartDropdown.classList.add("hidden");
-          }
-        });
+          document.addEventListener("click", (event) => {
+            if (
+              !cartButton.contains(event.target) &&
+              !cartDropdown.contains(event.target)
+            ) {
+              toggleElement(cartDropdown, false);
+            }
+          });
+        }
       }
 
       // Fonction d'initialisation principale
       function initializeApp() {
-        setupModalTriggers();
-        setupModalVisibility("inscription", "modalInscription");
-        setupModalVisibility("connexion", "modalConnexion");
-        setupForgotPassword();
-        setupProfileDropdown();
-        setupAccountDropdown();
+        setupUserInteractions();
         setupCartDropdown();
 
         const scrollUpBtn = document.querySelector(SELECTORS.scrollUpBtn);
         if (scrollUpBtn) {
-          scrollUpBtn.addEventListener("click", scrollToTop);
+          scrollUpBtn.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
         }
 
-        window.addEventListener("scroll", handleScrollButton);
+        window.addEventListener("scroll", () => {
+          const scrollUpBtn = document.querySelector(SELECTORS.scrollUpBtn);
+          if (scrollUpBtn) {
+            scrollUpBtn.style.display = window.scrollY > 20 ? "block" : "none";
+          }
+        });
       }
 
       // Exécuter l'initialisation lorsque le DOM est chargé

@@ -135,7 +135,7 @@
 
 
 
-#modalInscription, #modalConnexion, #modalProfil, #modalLoginOublie {
+.modalProfil {
   position: absolute;
   top: 62%;
   left: 50%;
@@ -152,7 +152,7 @@
 
 @media screen and (max-width:767px) {
 
-  #modalInscription, #modalConnexion, #modalProfil, #modalLoginOublie {
+  .modalProfil {
     width: 100%;
   }
 
