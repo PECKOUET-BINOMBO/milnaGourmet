@@ -6,15 +6,16 @@ import { SectionCreationComponent } from "../section-creation/section-creation.c
 import { ContactComponent } from "../contact/contact.component";
 import { FooterComponent } from "../footer/footer.component";
 import { AsyncPipe, NgIf } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, timer } from 'rxjs';
 import { MessagePanierComponent } from "../message-panier/message-panier.component";
 import { ServicePanier } from '../services/service-panier';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { MessageDeconnexionComponent } from "../message-deconnexion/message-deconnexion.component";
 
 @Component({
   selector: 'app-accueil',
   standalone: true,
-  imports: [HeaderComponent, SectionCremeuxComponent, SectionLiquideComponent, SectionCreationComponent, ContactComponent, FooterComponent, AsyncPipe, NgIf, MessagePanierComponent, NavbarComponent],
+  imports: [HeaderComponent, SectionCremeuxComponent, SectionLiquideComponent, SectionCreationComponent, ContactComponent, FooterComponent, AsyncPipe, NgIf, MessagePanierComponent, NavbarComponent, MessageDeconnexionComponent],
   templateUrl: './accueil.component.html',
   styleUrl: './accueil.component.scss'
 })
@@ -23,6 +24,11 @@ export class AccueilComponent implements OnInit {
   title = 'milnaGourmet';
   afficherMessage$!: Observable<boolean>;
   produitAjoute$!: Observable<string>;
+  afficherMessageDeconnexion$ = new BehaviorSubject<boolean>(false);
+
+
+
+
 
   constructor(private servicePanier: ServicePanier) {}
 
@@ -30,4 +36,13 @@ export class AccueilComponent implements OnInit {
     this.afficherMessage$ = this.servicePanier.afficherMessage$;
     this.produitAjoute$ = this.servicePanier.produitAjoute$;
   }
+
+  onDeconnexionReussie() {
+    this.afficherMessageDeconnexion$.next(true);
+    timer(3000).subscribe(() => {
+      this.afficherMessageDeconnexion$.next(false);
+    });
+  }
+
+
 }

@@ -1,5 +1,5 @@
 import { Injectable, inject } from "@angular/core";
-import { Auth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, UserCredential, User } from "@angular/fire/auth";
+import { Auth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, UserCredential, User, signOut } from "@angular/fire/auth";
 import { Firestore, doc, setDoc } from "@angular/fire/firestore";
 import { from, Observable, switchMap, map, catchError } from "rxjs";
 import { UserInterface } from './user.interface';
@@ -10,6 +10,7 @@ import { UserInterface } from './user.interface';
 export class AuthService {
   private firebaseAuth = inject(Auth);
   private firestore = inject(Firestore);
+  
 
   register(user: UserInterface): Observable<void> {
     return from(createUserWithEmailAndPassword(this.firebaseAuth, user.email, user.password)).pipe(
@@ -63,4 +64,14 @@ export class AuthService {
       return unsubscribe;
     });
   }
+
+  logout(): Observable<void> {
+    return from(signOut(this.firebaseAuth)).pipe(
+      catchError((error) => {
+        console.error('Error during logout:', error);
+        throw error;
+      })
+    );
+  }
+
 }

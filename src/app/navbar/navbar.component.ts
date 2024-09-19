@@ -1,7 +1,10 @@
-import { NgOptimizedImage, ViewportScroller } from '@angular/common';
-import { Component } from '@angular/core';
+import { NgOptimizedImage, ViewportScroller, CommonModule } from '@angular/common';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PanierComponent } from "../panier/panier.component";
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { RouterOutlet, RouterLink, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { Observable } from 'rxjs';
+import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -10,24 +13,49 @@ import { RouterOutlet, RouterLink } from '@angular/router';
     NgOptimizedImage,
     PanierComponent,
     RouterLink,
-    RouterOutlet
+    RouterOutlet,
+    CommonModule
 ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 
-export class NavbarComponent {
-   logoUrl = 'images/logo2.png'
-   iconCompte = 'images/compte.gif'
+export class NavbarComponent implements OnInit {
+  logoUrl = 'images/logo2.png';
+  iconCompte = 'images/compte.gif';
+  currentUser$: Observable<User | null>;
 
-   constructor(private viewportScroller: ViewportScroller) {}
+  @Output() deconnexionReussie = new EventEmitter<void>();
 
-   scrollToElement(elementId: string): void {
-    this.viewportScroller.scrollToAnchor(elementId);
-   }
+  constructor(
+    private viewportScroller: ViewportScroller,
+    private authService: AuthService,
+    private router: Router
 
-   logout():void{
-    console.log('Déconnexion')
+  ) {
+    this.currentUser$ = this.authService.getCurrentUser();
   }
 
+  ngOnInit(): void {
+    // Any initialization logic if needed
+  }
+
+  scrollToElement(elementId: string): void {
+    this.viewportScroller.scrollToAnchor(elementId);
+  }
+
+
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: () => {
+        this.deconnexionReussie.emit();
+        this.router.navigate(['/']); // Redirection vers la page d'accueil
+      },
+      error: (error) => {
+        console.error('Logout error', error);
+      }
+    });
+  }
+
+  
 }

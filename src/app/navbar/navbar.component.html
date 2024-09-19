@@ -2,20 +2,14 @@
   <div
     class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
   >
-    <a
-      routerLink="/"
-      class="flex items-center space-x-3 rtl:space-x-reverse"
-    >
-    <img ngSrc="images/logo2.png" width="100" height="59.5" alt="My Logo">
+    <a routerLink="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+      <img ngSrc="images/logo2.png" width="100" height="59.5" alt="My Logo" />
     </a>
     <div
       class="relative flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse"
     >
-
-    <!-- Panier -->
-     <app-panier></app-panier>
-
-
+      <!-- Panier -->
+      <app-panier></app-panier>
 
       <!-- Bouton du menu pour mobile -->
       <button
@@ -81,52 +75,69 @@
         </li>
         <li>
           <span
-          (click)="scrollToElement('contact')"
+            (click)="scrollToElement('contact')"
             class="cursor-pointer principal block py-2 px-3 md:p-0"
             >Contacts</span
           >
         </li>
         <li>
           <span
-          id="userIcon"
-            class="cursor-pointer principal block py-2 px-3 md:p-0 relative flex items-center justify-center"
-            > <span>Paul</span> <img [ngSrc]="iconCompte" alt="icon compte"  width="20" height="20" /> </span
+            id="userIcon"
+            class="cursor-pointer principal block py-2 px-3 md:p-0 relative flex items-start justify-center"
           >
-          <ul id="userDropdown" class="font-normal absolute hidden z-10 mt-2  bg-white rounded-md shadow-lg">
-            <li class="py-1 px-2">
-              <a routerLink="/inscription" id="inscriptionLink"
+            <ng-container *ngIf="currentUser$ | async as user">
+              <span class="me-1">{{ user.displayName }}</span>
+            </ng-container>
+            <img
+              [ngSrc]="iconCompte"
+              alt="icon compte"
+              width="20"
+              height="20"
+            />
+          </span>
+          <ul
+            id="userDropdown"
+            class="font-normal absolute hidden z-10 mt-2 bg-white rounded-md shadow-lg"
+          >
+            <ng-container *ngIf="currentUser$ | async; else loggedOut">
+              <li class="py-1 px-2">
+                <span id="compteLink"
 
-                class="cursor-pointer principal block py-2 px-3 md:p-0"
-                >S'inscrire</a
-              >
-            </li>
-            <li class="py-1 px-2">
-              <a routerLink="/connexion" id="connexionLink"
-
-                class="cursor-pointer principal block py-2 px-3 md:p-0"
-                >Se connecter</a
-              >
-            </li>
-            <li class="py-1 px-2">
-              <span id="compteLink"
-
-                class="cursor-pointer principal block py-2 px-3 md:p-0"
-                >Mon compte</span
-              >
-            </li>
-            <li class="py-1 px-2">
-              <button id="deconnexionLink"
-
-              (click)="logout()"
-                class="cursor-pointer principal block py-2 px-3 md:p-0"
-                >Se déconnecter</button
-              >
-            </li>
+                  class="cursor-pointer principal block py-2 px-3 md:p-0"
+                  >Mon compte</span
+                >
+              </li>
+              <li class="py-1 px-2">
+                <button
+                  id="deconnexionLink"
+                  (click)="logout()"
+                  class="cursor-pointer principal block py-2 px-3 md:p-0"
+                >
+                  Se déconnecter
+                </button>
+              </li>
+            </ng-container>
+            <ng-template #loggedOut>
+              <li class="py-1 px-2">
+                <a
+                  routerLink="/inscription"
+                  id="inscriptionLink"
+                  class="cursor-pointer principal block py-2 px-3 md:p-0"
+                  >S'inscrire</a
+                >
+              </li>
+              <li class="py-1 px-2">
+                <a
+                  routerLink="/connexion"
+                  id="connexionLink"
+                  class="cursor-pointer principal block py-2 px-3 md:p-0"
+                  >Se connecter</a
+                >
+              </li>
+            </ng-template>
           </ul>
         </li>
-
       </ul>
     </div>
   </div>
 </nav>
-

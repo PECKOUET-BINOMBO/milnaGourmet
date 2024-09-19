@@ -1,12 +1,9 @@
-import { AuthService } from './../auth.service';
-import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-
-
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -15,13 +12,12 @@ import { RouterLink } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-
 export class LoginComponent {
-  logoUrl = 'images/logo2.png'
+  logoUrl = 'images/logo2.png';
 
-  fb = inject(FormBuilder);
-  http = inject(HttpClient);
-  authService = inject(AuthService);
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
@@ -36,8 +32,12 @@ export class LoginComponent {
       const { email, password } = this.form.getRawValue();
       this.authService.login(email, password).subscribe({
         next: () => {
-          this.successMessage = "Connexion réussie !";
+          this.successMessage = "Connexion réussie ! Vous allez être redirigé vers la page d'accueil.";
           this.errorMessage = null;
+          setTimeout(() => {
+            this.successMessage = null;
+            this.router.navigate(['/']);
+          }, 3000);
         },
         error: (err) => {
           this.errorMessage = this.getErrorMessage(err.code);
@@ -45,7 +45,7 @@ export class LoginComponent {
         }
       });
     } else {
-      this.form.markAllAsTouched(); // This will trigger the display of validation messages
+      this.form.markAllAsTouched();
       this.errorMessage = 'Veuillez corriger les erreurs dans le formulaire.';
     }
   }
