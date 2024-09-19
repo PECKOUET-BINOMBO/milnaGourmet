@@ -9,12 +9,12 @@ import { AsyncPipe, NgIf } from '@angular/common';
 import { Observable } from 'rxjs';
 import { MessagePanierComponent } from "../message-panier/message-panier.component";
 import { ServicePanier } from '../services/service-panier';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-accueil',
   standalone: true,
-  imports: [HeaderComponent, SectionCremeuxComponent, SectionLiquideComponent, SectionCreationComponent, ContactComponent, FooterComponent, AsyncPipe, NgIf, MessagePanierComponent
-  ],
+  imports: [HeaderComponent, SectionCremeuxComponent, SectionLiquideComponent, SectionCreationComponent, ContactComponent, FooterComponent, AsyncPipe, NgIf, MessagePanierComponent, NavbarComponent],
   templateUrl: './accueil.component.html',
   styleUrl: './accueil.component.scss'
 })

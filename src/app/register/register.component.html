@@ -1,23 +1,12 @@
 <!-- modal inscription -->
-<div
-  id="modalInscription"
-  class="mt-2 w-64 bg-white rounded-md shadow-lg p-5 modal"
->
+<div class="mt-2 bg-white rounded-md p-5 modal">
   <form
     [formGroup]="form"
     (ngSubmit)="onSubmit()"
     class="form_container relative"
   >
-
     <div class="logo_container flex items-center justify-center">
-      <img
-        [ngSrc]="logoUrl"
-        alt="Logo Milna Gourmet"
-        width="100"
-        height="100"
-        priority
-        class="w-full"
-      />
+      <img ngSrc="images/logo2.png" width="168" height="100">
     </div>
     <div class="title_container text-center">
       <p class="title">Créer un compte</p>
@@ -71,7 +60,6 @@
       <div class="ms-3 text-sm font-medium">
         {{ successMessage }}
       </div>
-
     </div>
 
     <div class="grid register-champ w-full mt-4">
@@ -310,7 +298,7 @@
       <span>S'inscrire</span>
     </button>
 
-     <div class="separator">
+    <div class="separator">
       <hr class="line" />
       <span>Ou</span>
       <hr class="line" />

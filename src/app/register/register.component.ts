@@ -1,33 +1,33 @@
-import { AuthService } from './../auth.service';
-import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { UserInterface } from '../user.interface';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, NgOptimizedImage, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, NgOptimizedImage],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
   logoUrl = 'images/logo2.png'
+  private fb = inject(FormBuilder);
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
-  fb = inject(FormBuilder);
-  http = inject(HttpClient);
-  authService = inject(AuthService);
-
-  form = this.fb.nonNullable.group({
+  form = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
     email: ['', [Validators.required, Validators.email]],
-    tel: ['', Validators.required],
+    tel: ['', [Validators.required, Validators.pattern(/^(?:(?:\+|00)241|0)?[1-9](?:[0-9]{7})$/)]],
     adresse: ['', Validators.required],
     password: ['', [
       Validators.required,
-      Validators.minLength(8)
+      Validators.minLength(8),
+      //Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
     ]],
   });
 
@@ -36,14 +36,22 @@ export class RegisterComponent {
 
   onSubmit(): void {
     if (this.form.valid) {
-      const { name, email, tel, adresse, password } = this.form.getRawValue();
-      this.authService.register(name, email, tel, adresse, password).subscribe({
+      const userData: UserInterface = this.form.getRawValue() as UserInterface;
+      this.authService.register(userData).subscribe({
         next: () => {
-          this.successMessage = "Inscription réussie ! Vous pouvez maintenant vous connecter.";
+          this.successMessage = "Inscription réussie ! Vous allez être redirigé vers la page de connexion.";
           this.errorMessage = null;
           this.form.reset();
+
+          setTimeout(() => {
+            this.successMessage = null;
+            setTimeout(() => {
+              this.router.navigate(['/connexion']);
+            }, 500);
+          }, 3000);
         },
         error: (err) => {
+          console.error('Erreur lors de l\'inscription:', err);
           this.errorMessage = this.getErrorMessage(err.code);
           this.successMessage = null;
         }
@@ -61,7 +69,7 @@ export class RegisterComponent {
       case 'auth/invalid-email':
         return "L'adresse email n'est pas valide.";
       case 'auth/weak-password':
-        return "Le mot de passe est trop faible.";
+        return "Le mot de passe est trop faible. Il doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.";
       default:
         return "Une erreur s'est produite lors de l'inscription. Veuillez réessayer.";
     }
