@@ -140,7 +140,7 @@
   top: 62%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10;
+  z-index: 1000;
   -webkit-transform: translate(-50%, -50%);
   -moz-transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
@@ -199,4 +199,18 @@
 .btn-modal:hover
 {
   color: #34aeb3;
+}
+
+
+body::-webkit-scrollbar {
+  width: 4px; /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: white; /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #06c0ca; /* color of the scroll thumb */
+  border-radius: 20px;
 }

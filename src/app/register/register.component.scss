@@ -83,7 +83,7 @@
   position: absolute;
   z-index: 99;
   left: 12px;
-  bottom: 9px;
+  bottom: 7px;
 }
 
 .input_label {
@@ -178,4 +178,8 @@
   font-size: 0.75rem;
   color: #8B8E98;
   text-decoration: underline;
+}
+
+.box-input-form input, .box-input-form select {
+  width: 100%;
 }

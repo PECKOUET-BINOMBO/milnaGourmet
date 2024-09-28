@@ -1,15 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
 import { UserInterface } from '../user.interface';
 import { NgOptimizedImage } from '@angular/common';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, NgOptimizedImage],
+  imports: [ReactiveFormsModule, CommonModule, NgOptimizedImage, NavbarComponent, RouterLink],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
@@ -39,15 +40,13 @@ export class RegisterComponent {
       const userData: UserInterface = this.form.getRawValue() as UserInterface;
       this.authService.register(userData).subscribe({
         next: () => {
-          this.successMessage = "Inscription réussie ! Vous allez être redirigé vers la page de connexion.";
+          this.successMessage = "Inscription réussie ! Vous allez être redirigé vers la page d'accueil.";
           this.errorMessage = null;
           this.form.reset();
 
           setTimeout(() => {
             this.successMessage = null;
-            setTimeout(() => {
-              this.router.navigate(['/connexion']);
-            }, 500);
+            this.router.navigate(['/']); // Redirection vers la page de connexion
           }, 3000);
         },
         error: (err) => {

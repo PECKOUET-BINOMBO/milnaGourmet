@@ -46,7 +46,7 @@ export class ServicePanier {
     // Programmer la disparition du message après 5 secondes
     setTimeout(() => {
       this._afficherMessage.next(false);
-    }, 5000);
+    }, 2000);
 
   }
 
@@ -75,4 +75,6 @@ export class ServicePanier {
     return this._panier.value.reduce((total, item) =>
       total + Number(item.quantite), 0);
   }
+
+
 }

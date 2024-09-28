@@ -11,11 +11,12 @@ import { MessagePanierComponent } from "../message-panier/message-panier.compone
 import { ServicePanier } from '../services/service-panier';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { MessageDeconnexionComponent } from "../message-deconnexion/message-deconnexion.component";
+import { MessageUpdateComponent } from '../message-update/message-update.component';
 
 @Component({
   selector: 'app-accueil',
   standalone: true,
-  imports: [HeaderComponent, SectionCremeuxComponent, SectionLiquideComponent, SectionCreationComponent, ContactComponent, FooterComponent, AsyncPipe, NgIf, MessagePanierComponent, NavbarComponent, MessageDeconnexionComponent],
+  imports: [HeaderComponent, SectionCremeuxComponent, SectionLiquideComponent, SectionCreationComponent, ContactComponent, FooterComponent, AsyncPipe, NgIf, MessagePanierComponent, NavbarComponent, MessageDeconnexionComponent, MessageUpdateComponent],
   templateUrl: './accueil.component.html',
   styleUrl: './accueil.component.scss'
 })
@@ -39,7 +40,7 @@ export class AccueilComponent implements OnInit {
 
   onDeconnexionReussie() {
     this.afficherMessageDeconnexion$.next(true);
-    timer(3000).subscribe(() => {
+    timer(2000).subscribe(() => {
       this.afficherMessageDeconnexion$.next(false);
     });
   }

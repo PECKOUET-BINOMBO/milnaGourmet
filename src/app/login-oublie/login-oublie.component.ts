@@ -4,11 +4,12 @@ import { NgOptimizedImage } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-login-oublie',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, NgOptimizedImage, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, NgOptimizedImage, RouterLink, NavbarComponent],
   templateUrl: './login-oublie.component.html',
   styleUrl: './login-oublie.component.scss'
 })

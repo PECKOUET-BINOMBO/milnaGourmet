@@ -47,6 +47,14 @@ export class SectionLiquideComponent {
       prix: 2500,
       imageUrl: 'images/header.png',
       quantite: 1
+    },
+    {
+      id: 4,
+      nom: 'Coco',
+      description: 'Gourmet liquide au coco',
+      prix: 3500,
+      imageUrl: 'images/header.png',
+      quantite: 1
     }
   ];
 

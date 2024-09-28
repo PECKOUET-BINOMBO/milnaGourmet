@@ -4,11 +4,12 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, NgOptimizedImage, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, NgOptimizedImage, RouterLink, NavbarComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

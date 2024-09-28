@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./navbar/navbar.component";
-import { CompteComponent } from "./compte/compte.component";
 import { BehaviorSubject } from 'rxjs';
-
 
 @Component({
   selector: 'app-root',
@@ -11,13 +9,11 @@ import { BehaviorSubject } from 'rxjs';
   imports: [
     RouterOutlet,
     NavbarComponent,
-    CompteComponent,
-],
+    
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  
-
-
+  // Your component logic here
 }

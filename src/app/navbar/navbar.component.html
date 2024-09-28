@@ -80,62 +80,26 @@
             >Contacts</span
           >
         </li>
-        <li>
-          <span
-            id="userIcon"
-            class="cursor-pointer principal block py-2 px-3 md:p-0 relative flex items-start justify-center"
-          >
-            <ng-container *ngIf="currentUser$ | async as user">
-              <span class="me-1">{{ user.displayName }}</span>
-            </ng-container>
-            <img
-              [ngSrc]="iconCompte"
-              alt="icon compte"
-              width="20"
-              height="20"
-            />
-          </span>
-          <ul
-            id="userDropdown"
-            class="font-normal absolute hidden z-10 mt-2 bg-white rounded-md shadow-lg"
-          >
-            <ng-container *ngIf="currentUser$ | async; else loggedOut">
-              <li class="py-1 px-2">
-                <span id="compteLink"
 
-                  class="cursor-pointer principal block py-2 px-3 md:p-0"
-                  >Mon compte</span
-                >
-              </li>
-              <li class="py-1 px-2">
-                <button
-                  id="deconnexionLink"
-                  (click)="logout()"
-                  class="cursor-pointer principal block py-2 px-3 md:p-0"
-                >
-                  Se déconnecter
-                </button>
-              </li>
-            </ng-container>
-            <ng-template #loggedOut>
-              <li class="py-1 px-2">
-                <a
-                  routerLink="/inscription"
-                  id="inscriptionLink"
-                  class="cursor-pointer principal block py-2 px-3 md:p-0"
-                  >S'inscrire</a
-                >
-              </li>
-              <li class="py-1 px-2">
-                <a
-                  routerLink="/connexion"
-                  id="connexionLink"
-                  class="cursor-pointer principal block py-2 px-3 md:p-0"
-                  >Se connecter</a
-                >
-              </li>
-            </ng-template>
-          </ul>
+        <li>
+          <div class="relative">
+            <button (click)="toggleDropdown()" class="principal flex items-start">
+              <span *ngIf="isLoggedIn">
+                {{ (currentUser$ | async)?.displayName || "" }}
+              </span>
+              <img class="w-5 h-5 rounded-full" [src]="iconCompte" alt="user photo">
+            </button>
+            <div *ngIf="isDropdownOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+              <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+                <a class="cursor-pointer principal block py-2 px-3 hover:bg-gray-100" routerLink="/compte">Mon compte</a>
+                <a class="cursor-pointer principal block py-2 px-3 hover:bg-gray-100" (click)="logout()">Se déconnecter</a>
+              </ng-container>
+              <ng-template #notLoggedIn>
+                <a class="cursor-pointer principal block py-2 px-3 hover:bg-gray-100" routerLink="/inscription">S'inscrire</a>
+                <a class="cursor-pointer principal block py-2 px-3 hover:bg-gray-100" routerLink="/connexion">Se connecter</a>
+              </ng-template>
+            </div>
+          </div>
         </li>
       </ul>
     </div>

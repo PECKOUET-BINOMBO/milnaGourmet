@@ -19,6 +19,7 @@
     </h3>
     <div class="panier">
       <ng-container *ngFor="let type of types">
+        <ng-container *ngIf="getElementsParType(type).length > 0">
         <h4 class="font-medium mt-2 mb-2 principal">{{ type | titlecase }}</h4>
         <ng-container *ngFor="let element of getElementsParType(type)">
           <div class="flex justify-between items-center">
@@ -45,6 +46,7 @@
           </div>
         </ng-container>
       </ng-container>
+    </ng-container>
     </div>
 
     <div class="mt-4 pt-2">
@@ -52,5 +54,22 @@
         Total: <span id="cartTotal">{{ total }} FCFA</span>
       </p>
     </div>
+
+    <div (click)="validerCommande()" class="mt-5 text-center highlight-button">
+      <button *ngIf="!panierEstVide"
+        class="py-2 btn-panier px-3 text-sm rounded-md transition duration-300 font-medium"
+      >
+        Valider la commande
+      </button>
+    </div>
+    <ng-container *ngIf="panierEstVide">
+      <div class="mt-5">
+        <span
+          class="cursor-not-allowed py-2 btn-panier px-3 text-sm rounded-md transition duration-300 font-medium"
+        >
+          Panier vide
+        </span>
+      </div>
+    </ng-container>
   </div>
 </div>
